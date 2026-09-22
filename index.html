@@ -9,11 +9,11 @@
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&amp;display=swap">
 <script src="./image-slot.js"></script>
 <style>
 html{color-scheme:light;scroll-behavior:auto}
-body{margin:0;background:#F4F1EA;color:#0E3A2C;font-family:"Hanken Grotesk",ui-sans-serif,system-ui,sans-serif;font-size:18px;line-height:1.45;-webkit-font-smoothing:antialiased}
+body{margin:0;background:#FFFFFF;color:#0E3A2C;font-family:"Hanken Grotesk",ui-sans-serif,system-ui,sans-serif;font-size:18px;line-height:1.45;-webkit-font-smoothing:antialiased}
 *,*::before,*::after{box-sizing:border-box}
 a{color:#0E3A2C;text-underline-offset:3px;text-decoration-thickness:1px}
 a:hover{color:#256B35}
@@ -39,7 +39,7 @@ details[open]>summary [data-icon]{transform:rotate(45deg)}
 
 <a href="#main" style="position:absolute;left:-9999px;top:12px;z-index:50;background:#0E3A2C;color:#FFFFFF;padding:10px 16px;font-weight:700" style-focus="left:16px">Zum Inhalt springen</a>
 
-<header data-section="header" style="position:sticky;top:0;z-index:20;background:#F4F1EA;border-bottom:1px solid #0E3A2C">
+<header data-section="header" style="position:sticky;top:0;z-index:20;background:#F5F4F0;border-bottom:1px solid #0E3A2C">
   <div style="max-width:1120px;margin:0 auto;padding:0 clamp(20px,3vw,48px);height:68px;display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);align-items:center">
     <a href="/" style="grid-column:{{ c.hdLogo }};grid-row:1;text-decoration:none;color:#0E3A2C;font-weight:700;font-size:19px;letter-spacing:-0.02em;line-height:1;display:flex;align-items:center;min-height:44px">Brunner<br>Reinigung</a>
     <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
@@ -65,7 +65,7 @@ details[open]>summary [data-icon]{transform:rotate(45deg)}
           <summary aria-label="Menü" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0E3A2C" stroke-width="2" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"></path></svg>
           </summary>
-          <nav aria-label="Hauptnavigation" style="position:absolute;right:0;top:calc(100% + 12px);min-width:240px;background:#F4F1EA;border:1px solid #0E3A2C">
+          <nav aria-label="Hauptnavigation" style="position:absolute;right:0;top:calc(100% + 12px);min-width:240px;background:#FFFFFF;border:1px solid #0E3A2C">
             <ul style="list-style:none;padding:0">
               <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
                 <li style="border-top:1px solid #0E3A2C"><a href="{{ n.href }}" onClick="{{ closeMenu }}" style="display:flex;align-items:center;min-height:52px;padding:0 16px;color:#0E3A2C;text-decoration:none;font-size:20px;font-weight:700;letter-spacing:-0.01em">{{ n.label }}</a></li>
@@ -81,7 +81,7 @@ details[open]>summary [data-icon]{transform:rotate(45deg)}
 <main id="main">
 
 <sc-if value="{{ heroSplit }}" hint-placeholder-val="{{ false }}">
-<section data-section="hero" id="hero" aria-labelledby="hero-h" style="scroll-margin-top:68px">
+<section data-section="hero" id="hero" aria-labelledby="hero-h" style="scroll-margin-top:68px;background:#F5F4F0">
   <div style="max-width:1120px;margin:0 auto;padding:clamp(20px,3vw,48px) clamp(20px,3vw,48px) clamp(80px,9vw,136px);display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px)">
     <div data-dark="" style="grid-column:{{ h6.panel }};grid-row:1;background:#0E3A2C;color:#FFFFFF;padding:clamp(28px,4vw,64px) {{ h6.panelPr }} clamp(28px,4vw,64px) clamp(28px,4vw,64px);display:flex;flex-direction:column;justify-content:space-between;gap:48px;min-height:{{ h6.minH }}">
       <h1 id="hero-h" style="font-size:clamp(48px,6vw,88px);line-height:0.9;letter-spacing:-0.045em;font-weight:700;margin-left:-0.04em">Sauber.<br>Pünktlich.<br><span style="color:#B8E34A">Aus Zürich.</span></h1>
@@ -106,11 +106,11 @@ details[open]>summary [data-icon]{transform:rotate(45deg)}
 </section>
 </sc-if>
 <sc-if value="{{ heroWide }}" hint-placeholder-val="{{ true }}">
-<section data-section="hero" id="hero" aria-labelledby="hero-h" style="scroll-margin-top:68px">
-  <div style="max-width:1120px;margin:0 auto;padding:clamp(80px,9vw,136px) clamp(20px,3vw,48px) clamp(80px,9vw,136px);display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:clamp(40px,5vw,72px)">
-    <h1 id="hero-h" style="grid-column:1 / -1;font-size:clamp(52px,8.4vw,128px);line-height:0.88;letter-spacing:-0.05em;font-weight:700;margin-left:-0.04em;color:#0E3A2C">Sauber. Pünktlich.<br><span style="color:#256B35">Aus Zürich.</span></h1>
+<section data-section="hero" id="hero" aria-labelledby="hero-h" style="scroll-margin-top:68px;background:#F5F4F0">
+  <div style="max-width:1120px;margin:0 auto;padding:clamp(40px,5vw,72px) clamp(20px,3vw,48px) clamp(80px,9vw,136px);display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:clamp(40px,5vw,72px)">
+    <h1 id="hero-h" style="grid-column:1 / -1;font-size:clamp(46px,7vw,104px);line-height:0.9;letter-spacing:-0.05em;font-weight:700;margin-left:-0.04em;color:#0E3A2C">Sauber. Pünktlich.<br><span style="color:#256B35">Aus Zürich.</span></h1>
     <div style="grid-column:{{ hb.img }};aspect-ratio:{{ hb.ratio }};background:#DAE5DC">
-      <image-slot id="v8-hero-wide" shape="rect" placeholder="Querformat-Foto: Reinigung in echter Wohnung"></image-slot>
+      <img src="images/v8-hero-wide.webp" alt="Reinigung in einer Wohnung" style="display:block;width:100%;height:100%;object-fit:cover">
     </div>
     <div data-dark="" style="grid-column:{{ hb.panel }};background:#0E3A2C;color:#FFFFFF;padding:clamp(28px,3vw,40px);display:flex;flex-direction:column;justify-content:space-between;gap:32px">
       <p style="font-size:clamp(18px,1.4vw,20px);line-height:1.45;text-wrap:pretty">Unterhalts-, Umzugs-, Büro- und Spezialreinigung für Haushalte und kleine Betriebe. Festes Team, eigenes Material.</p>
@@ -124,30 +124,29 @@ details[open]>summary [data-icon]{transform:rotate(45deg)}
             <a href="#kontakt" style="display:inline-flex;justify-content:center;align-items:center;min-height:56px;padding:0 20px;background:#B8E34A;color:#0E3A2C;border-radius:4px;text-decoration:none;font-weight:700" style-hover="background:#FFFFFF;color:#0E3A2C">Offerte anfragen</a>
           </sc-if>
         </div>
-        <p style="margin-top:16px;font-size:14px;font-weight:500;color:#B7CDBF">Kostenlose Offerte · Antwort innert 24 Stunden</p>
+        
       </div>
     </div>
   </div>
 </section>
 </sc-if>
 
-<section data-section="leistungen" id="leistungen" aria-labelledby="leistungen-h" style="scroll-margin-top:68px">
+<section data-section="leistungen" id="leistungen" aria-labelledby="leistungen-h" style="scroll-margin-top:68px;background:#F5F4F0">
   <div style="max-width:1120px;margin:0 auto;padding:0 clamp(20px,3vw,48px) clamp(80px,9vw,136px)">
     <div style="display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:16px;align-items:end">
       <h2 id="leistungen-h" style="grid-column:{{ c.lsH }};font-size:clamp(40px,4.6vw,68px);line-height:0.92;letter-spacing:-0.045em;font-weight:700">{{ lstTitle }}</h2>
-      <p style="grid-column:{{ c.lsP }};font-size:17px;max-width:34ch">Klar umrissener Umfang pro Leistung. Was darüber hinausgeht, besprechen wir in der Offerte.</p>
+      
     </div>
     <div style="display:flex;flex-direction:column;gap:clamp(56px,7vw,104px);margin-top:clamp(40px,5vw,72px)">
       <sc-for list="{{ leistungen }}" as="l" hint-placeholder-count="4">
         <article id="{{ l.slug }}" aria-labelledby="{{ l.hid }}" style="scroll-margin-top:84px;display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:28px;align-items:center">
           <sc-if value="{{ bilder }}" hint-placeholder-val="{{ true }}">
             <div style="grid-column:{{ l.imgCol }};grid-row:{{ l.row }};aspect-ratio:4/3;background:#DAE5DC">
-              <image-slot id="{{ l.imgId }}" shape="rect" placeholder="{{ l.imgPh }}"></image-slot>
+              <img src="{{ l.imgSrc }}" alt="{{ l.titel }}" loading="lazy" style="display:block;width:100%;height:100%;object-fit:cover">
             </div>
           </sc-if>
           <div style="grid-column:{{ l.txtCol }};grid-row:{{ l.row }}">
-            <p aria-hidden="true" style="font-size:14px;font-weight:700;color:#256B35;font-variant-numeric:tabular-nums">{{ l.num }}</p>
-            <h3 id="{{ l.hid }}" lang="de-CH" style="margin-top:10px;font-size:clamp(28px,2.6vw,38px);line-height:1.02;letter-spacing:-0.035em;font-weight:700;hyphens:auto">{{ l.titel }}</h3>
+            <h3 id="{{ l.hid }}" lang="de-CH" style="font-size:clamp(28px,2.6vw,38px);line-height:1.02;letter-spacing:-0.035em;font-weight:700;hyphens:auto">{{ l.titel }}</h3>
             <p style="margin-top:16px;font-size:17px;max-width:44ch;text-wrap:pretty">{{ l.einleitung }}</p>
             <ul style="list-style:none;padding:0;margin-top:20px;display:flex;flex-direction:column;gap:2px;font-size:15px">
               <sc-for list="{{ l.umfang }}" as="u" hint-placeholder-count="5">
@@ -156,10 +155,10 @@ details[open]>summary [data-icon]{transform:rotate(45deg)}
             </ul>
             <div style="display:flex;flex-wrap:wrap;gap:0 24px;margin-top:16px">
               <sc-if value="{{ l.hasForm }}" hint-placeholder-val="{{ true }}">
-                <a href="{{ l.formHref }}" onClick="{{ l.onForm }}" style="display:inline-flex;align-items:center;min-height:44px;font-weight:700;color:#0E3A2C;text-decoration:underline;text-underline-offset:4px">Offerte anfragen →</a>
+                
               </sc-if>
               <sc-if value="{{ l.hasWa }}" hint-placeholder-val="{{ false }}">
-                <a href="{{ l.waHref }}" style="display:inline-flex;align-items:center;min-height:44px;font-weight:700;color:#0E3A2C;text-decoration:underline;text-underline-offset:4px">Per WhatsApp →</a>
+                
               </sc-if>
             </div>
           </div>
@@ -180,7 +179,7 @@ details[open]>summary [data-icon]{transform:rotate(45deg)}
         <li style="grid-column:{{ g.col }};grid-row:{{ g.row }};min-height:0">
           <figure style="height:100%;display:flex;flex-direction:column;gap:10px">
             <div style="flex:1;min-height:{{ g.minH }};background:#DAE5DC">
-              <image-slot id="{{ g.id }}" shape="rect" placeholder="{{ g.ph }}"></image-slot>
+              <img src="{{ g.src }}" alt="{{ g.alt }}" loading="lazy" style="display:block;width:100%;height:100%;object-fit:cover">
             </div>
             <figcaption style="font-size:14px;display:flex;gap:12px"><span style="font-weight:700">{{ g.titel }}</span><span style="color:#44574C">{{ g.ort }}</span></figcaption>
           </figure>
@@ -243,25 +242,25 @@ details[open]>summary [data-icon]{transform:rotate(45deg)}
   <div style="max-width:1120px;margin:0 auto;padding:clamp(80px,9vw,136px) clamp(20px,3vw,48px)">
     <div style="display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:clamp(40px,5vw,72px);align-items:start">
       <div style="grid-column:{{ c.ueImg }};aspect-ratio:4/5;background:#DAE5DC">
-        <image-slot id="v3-portrait" shape="rect" placeholder="Portrait Sandra Brunner"></image-slot>
+        <img src="images/v3-portrait.webp" alt="Sandra Brunner" loading="lazy" style="display:block;width:100%;height:100%;object-fit:cover">
       </div>
       <div style="grid-column:{{ c.ueText }}">
         <h2 id="ueber-h" style="font-size:clamp(40px,4.6vw,68px);line-height:0.92;letter-spacing:-0.045em;margin-bottom:28px;font-weight:700">Über uns</h2>
         <p style="font-size:clamp(22px,2vw,30px);line-height:1.2;letter-spacing:-0.02em;font-weight:500;max-width:26ch;text-wrap:pretty">Zehn Jahre Spitalreinigung. Seit 2017 selbständig. Heute zu dritt, rund 60 Haushalte und Betriebe.</p>
         <div style="margin-top:28px;display:grid;grid-template-columns:{{ ueCols }};column-gap:clamp(12px,1.6vw,24px);row-gap:16px;font-size:16px;text-wrap:pretty">
           <p>Jede Kundin, jeder Kunde hat eine feste Ansprechperson. Wir kennen Ihre Räume und wissen, was Ihnen wichtig ist.</p>
-          <p>Wir arbeiten mit eigenem Material, verwenden wo möglich Mikrofaser und ökologische Mittel. Passt etwas nicht, kommen wir kostenlos zurück.</p>
+          
         </div>
         <dl style="margin:40px 0 0;display:grid;grid-template-columns:{{ ueCols }};column-gap:clamp(12px,1.6vw,24px);row-gap:16px;font-size:15px">
           <div style="border-top:1px solid #0E3A2C;padding-top:10px"><dt style="font-weight:700">Sandra Brunner</dt><dd style="margin:0">Inhaberin</dd></div>
-          <div style="border-top:1px solid #0E3A2C;padding-top:10px"><dt style="font-weight:700">Versicherung</dt><dd style="margin:0">Betriebshaftpflicht bei der Mobiliar, Deckung CHF 5 Mio.</dd></div>
+          
         </dl>
       </div>
     </div>
   </div>
 </section>
 
-<section data-section="faq" id="faq" aria-labelledby="faq-h" style="scroll-margin-top:68px;background:#FFFFFF">
+<section data-section="faq" id="faq" aria-labelledby="faq-h" style="scroll-margin-top:68px;background:#F5F4F0">
   <div style="max-width:1120px;margin:0 auto;padding:clamp(80px,9vw,136px) clamp(20px,3vw,48px)">
     <div style="display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:clamp(40px,5vw,72px);">
       <div style="grid-column:{{ c.faqL }}">
@@ -301,7 +300,7 @@ details[open]>summary [data-icon]{transform:rotate(45deg)}
         <dl style="margin:36px 0 0;display:flex;flex-direction:column">
           <div style="border-top:1px solid #0E3A2C;padding:10px 0 14px">
             <dt style="font-size:14px;font-weight:700">Telefon</dt>
-            <dd style="margin:0"><a href="tel:+41442143860" style="display:inline-flex;align-items:center;min-height:44px;font-size:clamp(26px,2.4vw,36px);font-weight:700;letter-spacing:-0.03em;text-decoration:none;font-variant-numeric:tabular-nums" style-hover="color:#256B35">044 214 38 60</a></dd>
+            <dd style="margin:0"><a href="tel:+41442143860" style="display:inline-flex;align-items:center;min-height:44px;font-size:19px;font-weight:500;font-variant-numeric:tabular-nums" style-hover="color:#256B35">044 214 38 60</a></dd>
           </div>
           <sc-if value="{{ messenger }}" hint-placeholder-val="{{ true }}">
             <div style="border-top:1px solid #0E3A2C;padding:10px 0 14px">
@@ -318,7 +317,7 @@ details[open]>summary [data-icon]{transform:rotate(45deg)}
             <dd style="margin:6px 0 0;display:grid;grid-template-columns:72px 1fr;font-size:17px;font-variant-numeric:tabular-nums"><span>Mo–Fr</span><span>07:30–18:00</span><span>Sa</span><span>08:00–12:00</span></dd>
           </div>
         </dl>
-        <p style="margin-top:16px;font-size:14px;font-weight:500">Kostenlose Offerte · Antwort innert 24 Stunden</p>
+        
       </div>
 
       <div style="grid-column:{{ c.konR }}">
@@ -328,7 +327,7 @@ details[open]>summary [data-icon]{transform:rotate(45deg)}
             <sc-if value="{{ multi }}" hint-placeholder-val="{{ true }}">
               <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:8px">
                 <label for="f-leistung" style="font-size:14px;font-weight:700">Leistung</label>
-                <select id="f-leistung" ref="{{ selectRef }}" value="{{ form.leistung }}" onChange="{{ on.leistung }}" aria-invalid="{{ inv.leistung }}" aria-describedby="e-leistung" style="appearance:none;font:inherit;font-size:17px;min-height:52px;padding:0 44px 0 14px;background:#FFFFFF url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2214%22 height=%2214%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%230E3A2C%22 stroke-width=%222.2%22><path d=%22M6 9l6 6 6-6%22/></svg>') no-repeat right 16px center;color:#0E3A2C;border:1px solid {{ bc.leistung }};border-radius:4px">
+                <select id="f-leistung" ref="{{ selectRef }}" value="{{ form.leistung }}" onChange="{{ on.leistung }}" aria-invalid="{{ inv.leistung }}" aria-describedby="e-leistung" style="appearance:none;font:inherit;font-size:17px;min-height:52px;padding:0 44px 0 14px;background:#FFFFFF url('data:image/svg+xml;utf8,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2214%22 height=%2214%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%230E3A2C%22 stroke-width=%222.2%22&gt;&lt;path d=%22M6 9l6 6 6-6%22/&gt;&lt;/svg&gt;') no-repeat right 16px center;color:#0E3A2C;border:1px solid {{ bc.leistung }};border-radius:4px">
                   <option value="">Bitte wählen</option>
                   <sc-for list="{{ leistungen }}" as="l" hint-placeholder-count="4">
                     <option value="{{ l.slug }}">{{ l.titel }}</option>
@@ -423,13 +422,11 @@ const ALL = [
   { slug: 'umzugsreinigung', titel: 'Umzugsreinigung', cta: 'formular',
     einleitung: 'Endreinigung Ihrer Mietwohnung vor der Wohnungsabgabe, abgestimmt auf die Anforderungen der Liegenschaftsverwaltung. Auf Wunsch sind wir bei der Abnahme dabei.',
     umfang: ['Küche inkl. Backofen und Kühlschrank', 'Bad inkl. Entkalkung', 'Fenster, Rahmen und Storen', 'Einbauschränke innen und aussen', 'Keller und Estrich'],
-    faq: [
-      { frage: 'Sind Sie bei der Wohnungsabgabe dabei?', antwort: 'Auf Wunsch ja. Beanstandet die Verwaltung etwas, reinigen wir direkt vor Ort nach.' },
-      { frage: 'Wie früh sollte ich buchen?', antwort: 'Idealerweise vier Wochen vorher. Ende März, Juni und September sind Termine knapp.' }] },
+    faq: [] },
   { slug: 'spezialreinigungen', titel: 'Spezialreinigungen', cta: 'messenger',
     einleitung: 'Einsätze ausserhalb der regelmässigen Reinigung: nach Umbau oder Renovation, Fenster und Storen, Teppiche und Polster – für Wohnungen, Häuser und kleine Betriebe.',
     umfang: ['Baureinigung nach Umbau oder Renovation', 'Fenster, Rahmen und Storen', 'Teppich- und Polsterreinigung', 'Grundreinigung von Böden', 'Reinigung nach Wasserschaden'],
-    faq: [{ frage: 'Wie schnell können Sie nach einem Umbau reinigen?', antwort: 'Meist innert einer Woche. Bei Bauabnahmen mit fixem Termin planen wir den Einsatz direkt mit der Bauleitung.' }] },
+    faq: [] },
   { slug: 'bueroreinigung', titel: 'Büroreinigung', cta: 'formular',
     einleitung: 'Reinigung von Büros, Praxen und Ateliers bis ca. 400 m² ausserhalb Ihrer Geschäftszeiten, frühmorgens oder abends.',
     umfang: ['Arbeitsplätze und Oberflächen', 'Teeküche und Sanitärräume', 'Böden aller Art', 'Entsorgung und Recycling', 'Verbrauchsmaterial auffüllen'], faq: [] },
@@ -570,7 +567,7 @@ class Component extends DCLogic {
       const cta = messenger ? l.cta : 'formular';
       return { ...l, hid: 'l-' + l.slug, row: nar ? 'auto' : '1', imgCol: nar ? FULL : (i % 2 ? '7 / 13' : '1 / 7'), txtCol: nar ? FULL : (!showImg ? '1 / 9' : (i % 2 ? '1 / 6' : '8 / 13')), num: String(i + 1).padStart(2, '0'),
         bodyCol: nar ? FULL : (showImg ? '5 / 9' : '5 / 11'),
-        imgId: 'v3-bild-' + l.slug, imgPh: 'Foto: ' + l.titel,
+        imgId: 'v3-bild-' + l.slug, imgSrc: 'images/v3-bild-' + l.slug + '.webp', imgPh: 'Foto: ' + l.titel,
         hasWa: cta !== 'formular', hasForm: cta !== 'messenger',
         waHref: wa('Guten Tag, ich interessiere mich für: ' + l.titel + '. Ort: … / Wunschtermin: …'),
         formHref: '?leistung=' + l.slug + '#kontakt', onForm: this.jumpToForm(l.slug) };
@@ -606,7 +603,7 @@ class Component extends DCLogic {
       messenger, multi: n > 1, single: n === 1, first: leistungen[0], leistungen, bilder: showImg,
       refs: REFS.map((r, i) => ({ ...r, aria: 'Bewertung ' + (i + 1) + ' von ' + REFS.length, initial: r.name[0], starsLabel: r.sterne + ' von 5 Sternen', stars: [0,1,2,3,4].map(k => k < r.sterne ? '#0E3A2C' : '#C9D3CB') })),
       galCols: nar ? 'repeat(2,minmax(0,1fr))' : 'repeat(12,minmax(0,1fr))',
-      galerie: GALERIE.map((g, i) => ({ ...g, id: 'v8-galerie-' + i, col: nar ? (i === 0 || i === GALERIE.length - 1 ? '1 / -1' : 'auto') : g.d[0], row: nar ? 'auto' : g.d[1], minH: nar ? (i === 0 ? '240px' : '160px') : '220px' })),
+      galerie: GALERIE.map((g, i) => ({ ...g, id: 'v8-galerie-' + i, src: 'images/v8-galerie-' + i + '.webp', alt: g.titel + ', ' + g.ort, col: nar ? (i === 0 || i === GALERIE.length - 1 ? '1 / -1' : 'auto') : g.d[0], row: nar ? 'auto' : g.d[1], minH: nar ? (i === 0 ? '240px' : '160px') : '220px' })),
       cardW: nar ? '86%' : 'calc((100% - 2 * clamp(12px,1.6vw,24px)) / 3)',
       dots: Array.from({ length: Math.max(1, REFS.length - (nar ? 1 : 3) + 1) }, (_, i) => ({ num: String(i + 1).padStart(2, '0'), label: 'Seite ' + (i + 1) + ' von ' + Math.max(1, REFS.length - (nar ? 1 : 3) + 1),
         current: i === s.active ? 'true' : undefined, deco: i === s.active ? 'underline' : 'none', op: i === s.active ? '1' : '0.35', w: i === s.active ? '28px' : '10px', color: i === s.active ? '#B8E34A' : '#B7CDBF',
