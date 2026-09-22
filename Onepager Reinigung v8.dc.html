@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&display=swap">
+<script src="./image-slot.js"></script>
+<style>
+html{color-scheme:light;scroll-behavior:auto}
+body{margin:0;background:#F4F1EA;color:#0E3A2C;font-family:"Hanken Grotesk",ui-sans-serif,system-ui,sans-serif;font-size:18px;line-height:1.45;-webkit-font-smoothing:antialiased}
+*,*::before,*::after{box-sizing:border-box}
+a{color:#0E3A2C;text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:#256B35}
+h1,h2,h3,p,ul,ol,figure,blockquote{margin:0}
+:focus-visible{outline:2px solid #256B35;outline-offset:3px}
+[data-dark] :focus-visible{outline-color:#FFFFFF}
+summary{list-style:none}
+summary::-webkit-details-marker{display:none}
+details[open]>summary [data-icon]{transform:rotate(45deg)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</helmet>
+
+<sc-if value="{{ showGrid }}" hint-placeholder-val="{{ false }}">
+  <div aria-hidden="true" style="position:fixed;inset:0;z-index:100;pointer-events:none">
+    <div style="max-width:1120px;height:100%;margin:0 auto;padding:0 clamp(20px,3vw,48px);display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px)">
+      <sc-for list="{{ gridCols }}" as="g" hint-placeholder-count="12">
+        <div style="background:rgba(37,107,53,0.07);border-left:1px solid rgba(37,107,53,0.25);border-right:1px solid rgba(37,107,53,0.25)"></div>
+      </sc-for>
+    </div>
+  </div>
+</sc-if>
+
+<a href="#main" style="position:absolute;left:-9999px;top:12px;z-index:50;background:#0E3A2C;color:#FFFFFF;padding:10px 16px;font-weight:700" style-focus="left:16px">Zum Inhalt springen</a>
+
+<header data-section="header" style="position:sticky;top:0;z-index:20;background:#F4F1EA;border-bottom:1px solid #0E3A2C">
+  <div style="max-width:1120px;margin:0 auto;padding:0 clamp(20px,3vw,48px);height:68px;display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);align-items:center">
+    <a href="/" style="grid-column:{{ c.hdLogo }};grid-row:1;text-decoration:none;color:#0E3A2C;font-weight:700;font-size:19px;letter-spacing:-0.02em;line-height:1;display:flex;align-items:center;min-height:44px">Brunner<br>Reinigung</a>
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+      <nav aria-label="Hauptnavigation" style="grid-column:4 / 10">
+        <ul style="list-style:none;padding:0;display:grid;grid-template-columns:repeat(4,max-content);column-gap:clamp(16px,2.4vw,36px)">
+          <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
+            <li><a href="{{ n.href }}" style="color:#0E3A2C;text-decoration:none;font-size:15px;font-weight:500;display:inline-flex;align-items:center;min-height:44px" style-hover="color:#256B35">{{ n.label }}</a></li>
+          </sc-for>
+        </ul>
+      </nav>
+      <div style="grid-column:10 / 13;display:flex;justify-content:flex-end;align-items:center;gap:20px">
+        <a href="tel:+41442143860" style="color:#0E3A2C;text-decoration:none;font-size:15px;font-weight:700;display:inline-flex;align-items:center;min-height:44px;font-variant-numeric:tabular-nums">044 214 38 60</a>
+        <a href="#kontakt" style="display:inline-flex;align-items:center;min-height:44px;padding:0 16px;background:#0E3A2C;border-radius:4px;color:#FFFFFF;text-decoration:none;font-size:15px;font-weight:700" style-hover="background:#B8E34A;color:#0E3A2C">Offerte</a>
+      </div>
+    </sc-if>
+    <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+      <div style="grid-column:1 / -1;grid-row:1;justify-self:end;display:flex;align-items:center;gap:4px">
+        <a href="tel:+41442143860" aria-label="Anrufen: 044 214 38 60" style="width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;color:#0E3A2C">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 3.5h3.2l1.6 4.2-2.1 1.4a11 11 0 0 0 7.2 7.2l1.4-2.1 4.2 1.6V19a1.5 1.5 0 0 1-1.6 1.5A16.5 16.5 0 0 1 3.5 5.1 1.5 1.5 0 0 1 5 3.5z"></path></svg>
+        </a>
+        <a href="#kontakt" style="display:inline-flex;align-items:center;min-height:44px;padding:0 14px;background:#0E3A2C;border-radius:4px;color:#FFFFFF;text-decoration:none;font-size:15px;font-weight:700">Offerte</a>
+        <details ref="{{ menuRef }}" style="position:relative">
+          <summary aria-label="Menü" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0E3A2C" stroke-width="2" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"></path></svg>
+          </summary>
+          <nav aria-label="Hauptnavigation" style="position:absolute;right:0;top:calc(100% + 12px);min-width:240px;background:#F4F1EA;border:1px solid #0E3A2C">
+            <ul style="list-style:none;padding:0">
+              <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
+                <li style="border-top:1px solid #0E3A2C"><a href="{{ n.href }}" onClick="{{ closeMenu }}" style="display:flex;align-items:center;min-height:52px;padding:0 16px;color:#0E3A2C;text-decoration:none;font-size:20px;font-weight:700;letter-spacing:-0.01em">{{ n.label }}</a></li>
+              </sc-for>
+            </ul>
+          </nav>
+        </details>
+      </div>
+    </sc-if>
+  </div>
+</header>
+
+<main id="main">
+
+<sc-if value="{{ heroSplit }}" hint-placeholder-val="{{ false }}">
+<section data-section="hero" id="hero" aria-labelledby="hero-h" style="scroll-margin-top:68px">
+  <div style="max-width:1120px;margin:0 auto;padding:clamp(20px,3vw,48px) clamp(20px,3vw,48px) clamp(80px,9vw,136px);display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px)">
+    <div data-dark="" style="grid-column:{{ h6.panel }};grid-row:1;background:#0E3A2C;color:#FFFFFF;padding:clamp(28px,4vw,64px) {{ h6.panelPr }} clamp(28px,4vw,64px) clamp(28px,4vw,64px);display:flex;flex-direction:column;justify-content:space-between;gap:48px;min-height:{{ h6.minH }}">
+      <h1 id="hero-h" style="font-size:clamp(48px,6vw,88px);line-height:0.9;letter-spacing:-0.045em;font-weight:700;margin-left:-0.04em">Sauber.<br>Pünktlich.<br><span style="color:#B8E34A">Aus Zürich.</span></h1>
+      <div>
+        <p style="font-size:clamp(19px,1.5vw,22px);line-height:1.4;max-width:34ch;text-wrap:pretty">Unterhalts-, Umzugs-, Büro- und Spezialreinigung für Haushalte und kleine Betriebe. Festes Team, eigenes Material.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:28px">
+          <sc-if value="{{ heroWa }}" hint-placeholder-val="{{ true }}">
+            <a href="{{ heroWaHref }}" style="display:inline-flex;align-items:center;gap:10px;min-height:56px;padding:0 24px;background:#B8E34A;color:#0E3A2C;border-radius:4px;text-decoration:none;font-weight:700" style-hover="background:#FFFFFF;color:#0E3A2C"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 20l1.3-3.9A8.5 8.5 0 1 1 8 18.8L4 20z"></path></svg>Per WhatsApp anfragen</a>
+            <a href="#kontakt" style="display:inline-flex;align-items:center;min-height:56px;padding:0 24px;border:2px solid #FFFFFF;color:#FFFFFF;border-radius:4px;text-decoration:none;font-weight:700" style-hover="background:#FFFFFF;color:#0E3A2C">Offerte anfragen</a>
+          </sc-if>
+          <sc-if value="{{ heroNoWa }}" hint-placeholder-val="{{ false }}">
+            <a href="#kontakt" style="display:inline-flex;align-items:center;min-height:56px;padding:0 24px;background:#B8E34A;color:#0E3A2C;border-radius:4px;text-decoration:none;font-weight:700" style-hover="background:#FFFFFF;color:#0E3A2C">Offerte anfragen</a>
+          </sc-if>
+        </div>
+        <p style="margin-top:16px;font-size:14px;font-weight:500;color:#B7CDBF">Kostenlose Offerte · Antwort innert 24 Stunden</p>
+      </div>
+    </div>
+    <div style="grid-column:{{ h6.img }};grid-row:{{ h6.imgRow }};margin:{{ h6.imgM }};position:relative;z-index:1;min-height:{{ h6.imgMinH }};background:#DAE5DC">
+      <image-slot id="v6-hero" shape="rect" placeholder="Hochformat-Foto: Reinigung in echter Wohnung"></image-slot>
+    </div>
+  </div>
+</section>
+</sc-if>
+<sc-if value="{{ heroWide }}" hint-placeholder-val="{{ true }}">
+<section data-section="hero" id="hero" aria-labelledby="hero-h" style="scroll-margin-top:68px">
+  <div style="max-width:1120px;margin:0 auto;padding:clamp(80px,9vw,136px) clamp(20px,3vw,48px) clamp(80px,9vw,136px);display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:clamp(40px,5vw,72px)">
+    <h1 id="hero-h" style="grid-column:1 / -1;font-size:clamp(52px,8.4vw,128px);line-height:0.88;letter-spacing:-0.05em;font-weight:700;margin-left:-0.04em;color:#0E3A2C">Sauber. Pünktlich.<br><span style="color:#256B35">Aus Zürich.</span></h1>
+    <div style="grid-column:{{ hb.img }};aspect-ratio:{{ hb.ratio }};background:#DAE5DC">
+      <image-slot id="v8-hero-wide" shape="rect" placeholder="Querformat-Foto: Reinigung in echter Wohnung"></image-slot>
+    </div>
+    <div data-dark="" style="grid-column:{{ hb.panel }};background:#0E3A2C;color:#FFFFFF;padding:clamp(28px,3vw,40px);display:flex;flex-direction:column;justify-content:space-between;gap:32px">
+      <p style="font-size:clamp(18px,1.4vw,20px);line-height:1.45;text-wrap:pretty">Unterhalts-, Umzugs-, Büro- und Spezialreinigung für Haushalte und kleine Betriebe. Festes Team, eigenes Material.</p>
+      <div>
+        <div style="display:flex;flex-direction:column;align-items:stretch;gap:8px">
+          <sc-if value="{{ heroWa }}" hint-placeholder-val="{{ true }}">
+            <a href="{{ heroWaHref }}" style="display:inline-flex;justify-content:center;align-items:center;gap:10px;min-height:56px;padding:0 20px;background:#B8E34A;color:#0E3A2C;border-radius:4px;text-decoration:none;font-weight:700" style-hover="background:#FFFFFF;color:#0E3A2C"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 20l1.3-3.9A8.5 8.5 0 1 1 8 18.8L4 20z"></path></svg>Per WhatsApp anfragen</a>
+            <a href="#kontakt" style="display:inline-flex;justify-content:center;align-items:center;min-height:56px;padding:0 20px;border:2px solid #FFFFFF;color:#FFFFFF;border-radius:4px;text-decoration:none;font-weight:700" style-hover="background:#FFFFFF;color:#0E3A2C">Offerte anfragen</a>
+          </sc-if>
+          <sc-if value="{{ heroNoWa }}" hint-placeholder-val="{{ false }}">
+            <a href="#kontakt" style="display:inline-flex;justify-content:center;align-items:center;min-height:56px;padding:0 20px;background:#B8E34A;color:#0E3A2C;border-radius:4px;text-decoration:none;font-weight:700" style-hover="background:#FFFFFF;color:#0E3A2C">Offerte anfragen</a>
+          </sc-if>
+        </div>
+        <p style="margin-top:16px;font-size:14px;font-weight:500;color:#B7CDBF">Kostenlose Offerte · Antwort innert 24 Stunden</p>
+      </div>
+    </div>
+  </div>
+</section>
+</sc-if>
+
+<section data-section="leistungen" id="leistungen" aria-labelledby="leistungen-h" style="scroll-margin-top:68px">
+  <div style="max-width:1120px;margin:0 auto;padding:0 clamp(20px,3vw,48px) clamp(80px,9vw,136px)">
+    <div style="display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:16px;align-items:end">
+      <h2 id="leistungen-h" style="grid-column:{{ c.lsH }};font-size:clamp(40px,4.6vw,68px);line-height:0.92;letter-spacing:-0.045em;font-weight:700">{{ lstTitle }}</h2>
+      <p style="grid-column:{{ c.lsP }};font-size:17px;max-width:34ch">Klar umrissener Umfang pro Leistung. Was darüber hinausgeht, besprechen wir in der Offerte.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:clamp(56px,7vw,104px);margin-top:clamp(40px,5vw,72px)">
+      <sc-for list="{{ leistungen }}" as="l" hint-placeholder-count="4">
+        <article id="{{ l.slug }}" aria-labelledby="{{ l.hid }}" style="scroll-margin-top:84px;display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:28px;align-items:center">
+          <sc-if value="{{ bilder }}" hint-placeholder-val="{{ true }}">
+            <div style="grid-column:{{ l.imgCol }};grid-row:{{ l.row }};aspect-ratio:4/3;background:#DAE5DC">
+              <image-slot id="{{ l.imgId }}" shape="rect" placeholder="{{ l.imgPh }}"></image-slot>
+            </div>
+          </sc-if>
+          <div style="grid-column:{{ l.txtCol }};grid-row:{{ l.row }}">
+            <p aria-hidden="true" style="font-size:14px;font-weight:700;color:#256B35;font-variant-numeric:tabular-nums">{{ l.num }}</p>
+            <h3 id="{{ l.hid }}" lang="de-CH" style="margin-top:10px;font-size:clamp(28px,2.6vw,38px);line-height:1.02;letter-spacing:-0.035em;font-weight:700;hyphens:auto">{{ l.titel }}</h3>
+            <p style="margin-top:16px;font-size:17px;max-width:44ch;text-wrap:pretty">{{ l.einleitung }}</p>
+            <ul style="list-style:none;padding:0;margin-top:20px;display:flex;flex-direction:column;gap:2px;font-size:15px">
+              <sc-for list="{{ l.umfang }}" as="u" hint-placeholder-count="5">
+                <li style="display:grid;grid-template-columns:18px 1fr"><span aria-hidden="true" style="color:#256B35">–</span><span>{{ u }}</span></li>
+              </sc-for>
+            </ul>
+            <div style="display:flex;flex-wrap:wrap;gap:0 24px;margin-top:16px">
+              <sc-if value="{{ l.hasForm }}" hint-placeholder-val="{{ true }}">
+                <a href="{{ l.formHref }}" onClick="{{ l.onForm }}" style="display:inline-flex;align-items:center;min-height:44px;font-weight:700;color:#0E3A2C;text-decoration:underline;text-underline-offset:4px">Offerte anfragen →</a>
+              </sc-if>
+              <sc-if value="{{ l.hasWa }}" hint-placeholder-val="{{ false }}">
+                <a href="{{ l.waHref }}" style="display:inline-flex;align-items:center;min-height:44px;font-weight:700;color:#0E3A2C;text-decoration:underline;text-underline-offset:4px">Per WhatsApp →</a>
+              </sc-if>
+            </div>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section data-section="referenzbilder" id="arbeiten" aria-labelledby="arbeiten-h" style="scroll-margin-top:68px;background:#FFFFFF">
+  <div style="max-width:1120px;margin:0 auto;padding:clamp(80px,9vw,136px) clamp(20px,3vw,48px)">
+    <div style="display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:16px;align-items:end">
+      <h2 id="arbeiten-h" style="grid-column:{{ c.lsH }};font-size:clamp(40px,4.6vw,68px);line-height:0.92;letter-spacing:-0.045em;font-weight:700">Referenzen</h2>
+      <p style="grid-column:{{ c.lsP }};font-size:17px;max-width:34ch">Einblick in abgeschlossene Einsätze in Zürich und Umgebung.</p>
+    </div>
+    <ul style="list-style:none;padding:0;margin-top:clamp(40px,5vw,72px);display:grid;grid-template-columns:{{ galCols }};grid-auto-flow:dense;gap:clamp(12px,1.6vw,24px)">
+      <sc-for list="{{ galerie }}" as="g" hint-placeholder-count="6">
+        <li style="grid-column:{{ g.col }};grid-row:{{ g.row }};min-height:0">
+          <figure style="height:100%;display:flex;flex-direction:column;gap:10px">
+            <div style="flex:1;min-height:{{ g.minH }};background:#DAE5DC">
+              <image-slot id="{{ g.id }}" shape="rect" placeholder="{{ g.ph }}"></image-slot>
+            </div>
+            <figcaption style="font-size:14px;display:flex;gap:12px"><span style="font-weight:700">{{ g.titel }}</span><span style="color:#44574C">{{ g.ort }}</span></figcaption>
+          </figure>
+        </li>
+      </sc-for>
+    </ul>
+  </div>
+</section>
+<section data-section="referenzen" id="referenzen" aria-labelledby="referenzen-h" style="scroll-margin-top:68px;background:#B8E34A;color:#0E3A2C">
+  <div style="max-width:1120px;margin:0 auto;padding:clamp(80px,9vw,136px) clamp(20px,3vw,48px)">
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px">
+      <h2 id="referenzen-h" style="font-size:clamp(40px,4.6vw,68px);line-height:0.92;letter-spacing:-0.045em;font-weight:700;max-width:12ch">Das sagen unsere Kunden</h2>
+      <div style="display:flex;align-items:center;gap:16px">
+        <p style="font-size:clamp(40px,4.6vw,68px);line-height:0.9;letter-spacing:-0.045em;font-weight:700;font-variant-numeric:tabular-nums">4,9</p>
+        <div>
+          <div style="display:flex;gap:2px" role="img" aria-label="4,9 von 5 Sternen"><svg width="18" height="18" viewBox="0 0 24 24" fill="#0E3A2C" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"></path></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="#0E3A2C" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"></path></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="#0E3A2C" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"></path></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="#0E3A2C" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"></path></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="#0E3A2C" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"></path></svg></div>
+          <p style="margin-top:4px;font-size:14px;font-weight:500">38 Bewertungen auf Google</p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:clamp(40px,5vw,72px)" onMouseEnter="{{ onHoverIn }}" onMouseLeave="{{ onHoverOut }}" onFocus="{{ onFocusIn }}" onBlur="{{ onFocusOut }}">
+      <div ref="{{ trackRef }}" onScroll="{{ onScroll }}" onPointerDown="{{ onUser }}" onWheel="{{ onWheel }}" onTouchStart="{{ onUser }}" onKeyDown="{{ onUser }}" tabindex="0" role="region" aria-roledescription="Karussell" aria-label="Google-Bewertungen" style="display:flex;gap:clamp(12px,1.6vw,24px);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none">
+        <sc-for list="{{ refs }}" as="r" hint-placeholder-count="6">
+          <figure aria-label="{{ r.aria }}" style="flex:0 0 {{ cardW }};scroll-snap-align:start;background:#FFFFFF;padding:clamp(24px,2.4vw,32px);display:flex;flex-direction:column;gap:20px">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+              <div style="display:flex;gap:2px" role="img" aria-label="{{ r.starsLabel }}">
+                <sc-for list="{{ r.stars }}" as="st" hint-placeholder-count="5">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="{{ st }}" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"></path></svg>
+                </sc-for>
+              </div>
+              <span style="font-size:13px;color:#44574C">{{ r.datum }}</span>
+            </div>
+            <blockquote style="flex:1;font-size:17px;line-height:1.5;text-wrap:pretty">{{ r.text }}</blockquote>
+            <figcaption style="display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid #DAE5DC">
+              <span aria-hidden="true" style="width:40px;height:40px;flex:none;border-radius:50%;background:#0E3A2C;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px">{{ r.initial }}</span>
+              <span style="display:flex;flex-direction:column;min-width:0"><span style="font-weight:700;font-size:15px">{{ r.name }}</span><span style="font-size:13px;color:#44574C">Google-Bewertung</span></span>
+            </figcaption>
+          </figure>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;margin-top:24px">
+        <div style="display:flex;align-items:center;margin-left:-12px">
+          <button type="button" onClick="{{ togglePlay }}" aria-label="{{ playLabel }}" style="width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;background:transparent;border:0;cursor:pointer;color:#0E3A2C">
+            <sc-if value="{{ isRunning }}" hint-placeholder-val="{{ true }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 4h4v16H6zM14 4h4v16h-4z"></path></svg></sc-if>
+            <sc-if value="{{ notRunning }}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z"></path></svg></sc-if>
+          </button>
+          <sc-for list="{{ dots }}" as="d" hint-placeholder-count="4">
+            <button type="button" onClick="{{ d.onClick }}" aria-label="{{ d.label }}" aria-current="{{ d.current }}" style="width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;background:transparent;border:0;cursor:pointer;padding:0">
+              <span style="display:block;width:{{ d.w }};height:10px;border-radius:5px;background:#0E3A2C;opacity:{{ d.op }};transition:width .2s"></span>
+            </button>
+          </sc-for>
+        </div>
+        <a href="#" style="display:inline-flex;align-items:center;min-height:44px;font-weight:700;color:#0E3A2C;text-decoration:underline;text-underline-offset:4px">Alle Bewertungen auf Google →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-section="ueber-uns" id="ueber-uns" aria-labelledby="ueber-h" style="scroll-margin-top:68px">
+  <div style="max-width:1120px;margin:0 auto;padding:clamp(80px,9vw,136px) clamp(20px,3vw,48px)">
+    <div style="display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:clamp(40px,5vw,72px);align-items:start">
+      <div style="grid-column:{{ c.ueImg }};aspect-ratio:4/5;background:#DAE5DC">
+        <image-slot id="v3-portrait" shape="rect" placeholder="Portrait Sandra Brunner"></image-slot>
+      </div>
+      <div style="grid-column:{{ c.ueText }}">
+        <h2 id="ueber-h" style="font-size:clamp(40px,4.6vw,68px);line-height:0.92;letter-spacing:-0.045em;margin-bottom:28px;font-weight:700">Über uns</h2>
+        <p style="font-size:clamp(22px,2vw,30px);line-height:1.2;letter-spacing:-0.02em;font-weight:500;max-width:26ch;text-wrap:pretty">Zehn Jahre Spitalreinigung. Seit 2017 selbständig. Heute zu dritt, rund 60 Haushalte und Betriebe.</p>
+        <div style="margin-top:28px;display:grid;grid-template-columns:{{ ueCols }};column-gap:clamp(12px,1.6vw,24px);row-gap:16px;font-size:16px;text-wrap:pretty">
+          <p>Jede Kundin, jeder Kunde hat eine feste Ansprechperson. Wir kennen Ihre Räume und wissen, was Ihnen wichtig ist.</p>
+          <p>Wir arbeiten mit eigenem Material, verwenden wo möglich Mikrofaser und ökologische Mittel. Passt etwas nicht, kommen wir kostenlos zurück.</p>
+        </div>
+        <dl style="margin:40px 0 0;display:grid;grid-template-columns:{{ ueCols }};column-gap:clamp(12px,1.6vw,24px);row-gap:16px;font-size:15px">
+          <div style="border-top:1px solid #0E3A2C;padding-top:10px"><dt style="font-weight:700">Sandra Brunner</dt><dd style="margin:0">Inhaberin</dd></div>
+          <div style="border-top:1px solid #0E3A2C;padding-top:10px"><dt style="font-weight:700">Versicherung</dt><dd style="margin:0">Betriebshaftpflicht bei der Mobiliar, Deckung CHF 5 Mio.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-section="faq" id="faq" aria-labelledby="faq-h" style="scroll-margin-top:68px;background:#FFFFFF">
+  <div style="max-width:1120px;margin:0 auto;padding:clamp(80px,9vw,136px) clamp(20px,3vw,48px)">
+    <div style="display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:clamp(40px,5vw,72px);">
+      <div style="grid-column:{{ c.faqL }}">
+        <h2 id="faq-h" style="font-size:clamp(40px,4.6vw,68px);line-height:0.92;letter-spacing:-0.045em;margin-bottom:28px;font-weight:700">Fragen</h2>
+        <p style="font-size:17px">Ihre Frage fehlt?<br><a href="#kontakt" style="font-weight:700">Schreiben Sie uns.</a></p>
+      </div>
+      <div style="grid-column:{{ c.faqR }};display:flex;flex-direction:column;gap:48px">
+        <sc-for list="{{ faqGroups }}" as="g" hint-placeholder-count="3">
+          <div>
+            <sc-if value="{{ g.showTitle }}" hint-placeholder-val="{{ true }}">
+              <h3 style="font-size:14px;font-weight:700;margin-bottom:12px;color:#256B35">{{ g.titel }}</h3>
+            </sc-if>
+            <div style="border-bottom:1px solid #0E3A2C">
+              <sc-for list="{{ g.items }}" as="q" hint-placeholder-count="3">
+                <details name="faq" style="border-top:1px solid #0E3A2C">
+                  <summary style="display:flex;justify-content:space-between;align-items:center;gap:24px;min-height:64px;padding:14px 0;cursor:pointer;font-size:clamp(19px,1.5vw,22px);font-weight:700;letter-spacing:-0.015em;line-height:1.25">
+                    <span>{{ q.frage }}</span>
+                    <svg data-icon="" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E3A2C" stroke-width="2" aria-hidden="true" style="flex:none;transition:transform .15s"><path d="M12 3v18M3 12h18"></path></svg>
+                  </summary>
+                  <p style="padding:0 48px 22px 0;max-width:60ch;font-size:17px;text-wrap:pretty">{{ q.antwort }}</p>
+                </details>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-section="kontakt" id="kontakt" aria-labelledby="kontakt-h" style="scroll-margin-top:68px">
+  <div style="max-width:1120px;margin:0 auto;padding:clamp(80px,9vw,136px) clamp(20px,3vw,48px)">
+    <div style="display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:clamp(40px,5vw,72px);">
+      <div style="grid-column:{{ c.konL }}">
+        <h2 id="kontakt-h" style="font-size:clamp(40px,4.6vw,68px);line-height:0.92;letter-spacing:-0.045em;margin-bottom:28px;font-weight:700">Kontakt</h2>
+        <p style="font-size:17px;max-width:32ch;text-wrap:pretty">Beschreiben Sie kurz, was gereinigt werden soll. Sie erhalten eine Offerte, bevor wir einen Termin vereinbaren.</p>
+        <dl style="margin:36px 0 0;display:flex;flex-direction:column">
+          <div style="border-top:1px solid #0E3A2C;padding:10px 0 14px">
+            <dt style="font-size:14px;font-weight:700">Telefon</dt>
+            <dd style="margin:0"><a href="tel:+41442143860" style="display:inline-flex;align-items:center;min-height:44px;font-size:clamp(26px,2.4vw,36px);font-weight:700;letter-spacing:-0.03em;text-decoration:none;font-variant-numeric:tabular-nums" style-hover="color:#256B35">044 214 38 60</a></dd>
+          </div>
+          <sc-if value="{{ messenger }}" hint-placeholder-val="{{ true }}">
+            <div style="border-top:1px solid #0E3A2C;padding:10px 0 14px">
+              <dt style="font-size:14px;font-weight:700">WhatsApp</dt>
+              <dd style="margin:0"><a href="{{ kontaktWaHref }}" style="display:inline-flex;align-items:center;min-height:44px;font-size:19px;font-weight:500" style-hover="color:#256B35">Nachricht schreiben →</a></dd>
+            </div>
+          </sc-if>
+          <div style="border-top:1px solid #0E3A2C;padding:10px 0 14px">
+            <dt style="font-size:14px;font-weight:700">E-Mail</dt>
+            <dd style="margin:0"><a href="mailto:hallo@brunner-reinigung.ch" style="display:inline-flex;align-items:center;min-height:44px;font-size:19px;font-weight:500;word-break:break-all" style-hover="color:#256B35">hallo@brunner-reinigung.ch</a></dd>
+          </div>
+          <div style="border-top:1px solid #0E3A2C;border-bottom:1px solid #0E3A2C;padding:10px 0 14px">
+            <dt style="font-size:14px;font-weight:700">Erreichbar</dt>
+            <dd style="margin:6px 0 0;display:grid;grid-template-columns:72px 1fr;font-size:17px;font-variant-numeric:tabular-nums"><span>Mo–Fr</span><span>07:30–18:00</span><span>Sa</span><span>08:00–12:00</span></dd>
+          </div>
+        </dl>
+        <p style="margin-top:16px;font-size:14px;font-weight:500">Kostenlose Offerte · Antwort innert 24 Stunden</p>
+      </div>
+
+      <div style="grid-column:{{ c.konR }}">
+        <sc-if value="{{ showForm }}" hint-placeholder-val="{{ true }}">
+          <form onSubmit="{{ onSubmit }}" noValidate="{{ true }}" style="display:grid;grid-template-columns:{{ formCols }};column-gap:clamp(12px,1.6vw,24px);row-gap:24px">
+            <input type="text" name="firma_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
+            <sc-if value="{{ multi }}" hint-placeholder-val="{{ true }}">
+              <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:8px">
+                <label for="f-leistung" style="font-size:14px;font-weight:700">Leistung</label>
+                <select id="f-leistung" ref="{{ selectRef }}" value="{{ form.leistung }}" onChange="{{ on.leistung }}" aria-invalid="{{ inv.leistung }}" aria-describedby="e-leistung" style="appearance:none;font:inherit;font-size:17px;min-height:52px;padding:0 44px 0 14px;background:#FFFFFF url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2214%22 height=%2214%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%230E3A2C%22 stroke-width=%222.2%22><path d=%22M6 9l6 6 6-6%22/></svg>') no-repeat right 16px center;color:#0E3A2C;border:1px solid {{ bc.leistung }};border-radius:4px">
+                  <option value="">Bitte wählen</option>
+                  <sc-for list="{{ leistungen }}" as="l" hint-placeholder-count="4">
+                    <option value="{{ l.slug }}">{{ l.titel }}</option>
+                  </sc-for>
+                  <option value="andere">Andere / weiss noch nicht</option>
+                </select>
+                <sc-if value="{{ err.leistung }}" hint-placeholder-val="{{ false }}">
+                  <p id="e-leistung" style="display:flex;gap:8px;font-size:15px;color:#B3261E"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.2v.3"></path></svg>{{ err.leistung }}</p>
+                </sc-if>
+              </div>
+            </sc-if>
+            <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:8px">
+              <label for="f-name" style="font-size:14px;font-weight:700">Name</label>
+              <input id="f-name" type="text" autocomplete="name" value="{{ form.name }}" onChange="{{ on.name }}" aria-invalid="{{ inv.name }}" aria-describedby="e-name" style="font:inherit;font-size:17px;min-height:52px;padding:0 14px;background:#FFFFFF;color:#0E3A2C;border:1px solid {{ bc.name }};border-radius:4px">
+              <sc-if value="{{ err.name }}" hint-placeholder-val="{{ false }}">
+                <p id="e-name" style="display:flex;gap:8px;font-size:15px;color:#B3261E"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.2v.3"></path></svg>{{ err.name }}</p>
+              </sc-if>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label for="f-email" style="font-size:14px;font-weight:700">E-Mail</label>
+              <input id="f-email" type="email" autocomplete="email" value="{{ form.email }}" onChange="{{ on.email }}" aria-invalid="{{ inv.email }}" aria-describedby="e-email" style="font:inherit;font-size:17px;min-height:52px;padding:0 14px;background:#FFFFFF;color:#0E3A2C;border:1px solid {{ bc.email }};border-radius:4px">
+              <sc-if value="{{ err.email }}" hint-placeholder-val="{{ false }}">
+                <p id="e-email" style="display:flex;gap:8px;font-size:15px;color:#B3261E"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.2v.3"></path></svg>{{ err.email }}</p>
+              </sc-if>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label for="f-tel" style="font-size:14px;font-weight:700">Telefon <span style="font-weight:400">(optional)</span></label>
+              <input id="f-tel" type="tel" autocomplete="tel" value="{{ form.telefon }}" onChange="{{ on.telefon }}" style="font:inherit;font-size:17px;min-height:52px;padding:0 14px;background:#FFFFFF;color:#0E3A2C;border:1px solid #768C7F;border-radius:4px">
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label for="f-ort" style="font-size:14px;font-weight:700">PLZ / Ort</label>
+              <input id="f-ort" type="text" autocomplete="postal-code" value="{{ form.ort }}" onChange="{{ on.ort }}" aria-invalid="{{ inv.ort }}" aria-describedby="e-ort" style="font:inherit;font-size:17px;min-height:52px;padding:0 14px;background:#FFFFFF;color:#0E3A2C;border:1px solid {{ bc.ort }};border-radius:4px">
+              <sc-if value="{{ err.ort }}" hint-placeholder-val="{{ false }}">
+                <p id="e-ort" style="display:flex;gap:8px;font-size:15px;color:#B3261E"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.2v.3"></path></svg>{{ err.ort }}</p>
+              </sc-if>
+            </div>
+            <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:8px">
+              <label for="f-msg" style="font-size:14px;font-weight:700">Nachricht <span style="font-weight:400">(optional)</span></label>
+              <textarea id="f-msg" rows="5" value="{{ form.nachricht }}" onChange="{{ on.nachricht }}" aria-describedby="h-msg" style="font:inherit;font-size:17px;padding:12px 14px;background:#FFFFFF;color:#0E3A2C;border:1px solid #768C7F;border-radius:4px;resize:vertical"></textarea>
+              <p id="h-msg" style="font-size:14px;color:#44574C">z.B. Grösse der Wohnung, Wunschtermin</p>
+            </div>
+            <div style="grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px;margin-top:8px">
+              <button type="submit" disabled="{{ sending }}" style="font:inherit;font-weight:700;font-size:17px;min-height:56px;padding:0 28px;background:#B8E34A;color:#0E3A2C;border:0;border-radius:4px;cursor:pointer;transition:background-color .15s" style-hover="background:#0E3A2C;color:#FFFFFF">{{ submitLabel }}</button>
+              <p style="flex:1 1 240px;font-size:14px;color:#44574C;max-width:44ch">Ihre Angaben verwenden wir nur zur Beantwortung Ihrer Anfrage. Details in der <a href="/datenschutz">Datenschutzerklärung</a>.</p>
+            </div>
+          </form>
+        </sc-if>
+        <sc-if value="{{ showSuccess }}" hint-placeholder-val="{{ false }}">
+          <div role="status" style="border-top:2px solid #0E3A2C;padding-top:16px">
+            <h3 ref="{{ successRef }}" tabindex="-1" style="font-size:clamp(36px,4vw,64px);line-height:0.95;letter-spacing:-0.04em;font-weight:700">Danke, {{ sentName }}.</h3>
+            <p style="margin-top:20px;font-size:18px;max-width:40ch">Ihre Anfrage ist eingegangen. Sie erhalten innert 24 Stunden eine Antwort mit Offerte oder Rückfragen.</p>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer data-section="footer" data-dark="" style="background:#0E3A2C;color:#FFFFFF">
+  <div style="max-width:1120px;margin:0 auto;padding:clamp(80px,9vw,136px) clamp(20px,3vw,48px) 32px">
+    <div style="display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:28px;font-size:15px;line-height:1.5">
+      <p style="grid-column:{{ c.ft0 }};font-weight:700;font-size:19px;letter-spacing:-0.02em;line-height:1">Brunner<br>Reinigung</p>
+      <p style="grid-column:{{ c.ft1 }};color:#B7CDBF">Sandra Brunner Reinigungen<br>Zollikerstrasse 48<br>8008 Zürich</p>
+      <div style="grid-column:{{ c.ft2 }};display:flex;flex-direction:column">
+        <a href="tel:+41442143860" style="color:#FFFFFF;min-height:28px" style-hover="color:#B8E34A">044 214 38 60</a>
+        <a href="mailto:hallo@brunner-reinigung.ch" style="color:#FFFFFF;min-height:28px" style-hover="color:#B8E34A">hallo@brunner-reinigung.ch</a>
+        <a href="https://maps.google.com" style="color:#FFFFFF;min-height:28px" style-hover="color:#B8E34A">Auf Google ansehen</a>
+      </div>
+    </div>
+    <div style="margin-top:72px;padding-top:12px;border-top:1px solid #FFFFFF;display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);font-size:14px;color:#B7CDBF;align-items:center">
+      <span style="grid-column:{{ c.ft0 }}">© 2026 Sandra Brunner Reinigungen</span>
+      <div style="grid-column:{{ c.ft1 }};display:flex;gap:24px">
+        <a href="/impressum" style="color:#FFFFFF;min-height:44px;display:inline-flex;align-items:center" style-hover="color:#B8E34A">Impressum</a>
+        <a href="/datenschutz" style="color:#FFFFFF;min-height:44px;display:inline-flex;align-items:center" style-hover="color:#B8E34A">Datenschutz</a>
+      </div>
+    </div>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;anzahlLeistungen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;1&quot;,&quot;2&quot;,&quot;4&quot;],&quot;default&quot;:&quot;4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Instanz&quot;},&quot;messengerAktiv&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Instanz&quot;},&quot;kartenbilder&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Instanz&quot;},&quot;rasterZeigen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Ansicht&quot;},&quot;heroLayout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Foto breit&quot;,&quot;Split&quot;],&quot;default&quot;:&quot;Foto breit&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Ansicht&quot;}}">
+const WA_NR = '41442143860';
+const wa = (t) => 'https://wa.me/' + WA_NR + '?text=' + encodeURIComponent(t);
+const ALL = [
+  { slug: 'unterhaltsreinigung', titel: 'Unterhaltsreinigung', cta: 'beide',
+    einleitung: 'Regelmässige Reinigung Ihrer Wohnung oder Ihres Hauses in Zürich und Umgebung – wöchentlich, alle zwei Wochen oder monatlich, immer durch dieselbe Person.',
+    umfang: ['Böden saugen und feucht wischen', 'Küche inkl. Fronten und Geräte', 'Bad und WC', 'Staub wischen', 'Betten beziehen auf Wunsch'],
+    faq: [
+      { frage: 'Kommt immer dieselbe Person?', antwort: 'Ja. Bei Ferien oder Krankheit übernimmt eine Kollegin aus dem Team, die wir Ihnen vorher ankündigen.' },
+      { frage: 'Kann ich einen Termin verschieben?', antwort: 'Bis 48 Stunden vorher kostenlos, per Telefon, WhatsApp oder E-Mail.' }] },
+  { slug: 'umzugsreinigung', titel: 'Umzugsreinigung', cta: 'formular',
+    einleitung: 'Endreinigung Ihrer Mietwohnung vor der Wohnungsabgabe, abgestimmt auf die Anforderungen der Liegenschaftsverwaltung. Auf Wunsch sind wir bei der Abnahme dabei.',
+    umfang: ['Küche inkl. Backofen und Kühlschrank', 'Bad inkl. Entkalkung', 'Fenster, Rahmen und Storen', 'Einbauschränke innen und aussen', 'Keller und Estrich'],
+    faq: [
+      { frage: 'Sind Sie bei der Wohnungsabgabe dabei?', antwort: 'Auf Wunsch ja. Beanstandet die Verwaltung etwas, reinigen wir direkt vor Ort nach.' },
+      { frage: 'Wie früh sollte ich buchen?', antwort: 'Idealerweise vier Wochen vorher. Ende März, Juni und September sind Termine knapp.' }] },
+  { slug: 'spezialreinigungen', titel: 'Spezialreinigungen', cta: 'messenger',
+    einleitung: 'Einsätze ausserhalb der regelmässigen Reinigung: nach Umbau oder Renovation, Fenster und Storen, Teppiche und Polster – für Wohnungen, Häuser und kleine Betriebe.',
+    umfang: ['Baureinigung nach Umbau oder Renovation', 'Fenster, Rahmen und Storen', 'Teppich- und Polsterreinigung', 'Grundreinigung von Böden', 'Reinigung nach Wasserschaden'],
+    faq: [{ frage: 'Wie schnell können Sie nach einem Umbau reinigen?', antwort: 'Meist innert einer Woche. Bei Bauabnahmen mit fixem Termin planen wir den Einsatz direkt mit der Bauleitung.' }] },
+  { slug: 'bueroreinigung', titel: 'Büroreinigung', cta: 'formular',
+    einleitung: 'Reinigung von Büros, Praxen und Ateliers bis ca. 400 m² ausserhalb Ihrer Geschäftszeiten, frühmorgens oder abends.',
+    umfang: ['Arbeitsplätze und Oberflächen', 'Teeküche und Sanitärräume', 'Böden aller Art', 'Entsorgung und Recycling', 'Verbrauchsmaterial auffüllen'], faq: [] },
+];
+const FAQ_ALLG = [
+  { frage: 'In welchen Orten sind Sie tätig?', antwort: 'In der Stadt Zürich und der Agglomeration, vom Limmattal bis an den Pfannenstiel: Zürich mit Oerlikon, Altstetten, Wiedikon, Seefeld, Wollishofen und Schwamendingen sowie Zollikon, Küsnacht, Kilchberg, Adliswil, Wallisellen, Dübendorf, Schlieren, Dietikon und Regensdorf. Ihr Ort ist nicht dabei? Fragen Sie trotzdem an.' },
+  { frage: 'Muss ich zu Hause sein, während Sie reinigen?', antwort: 'Nein. Viele Kundinnen und Kunden geben uns einen Schlüssel, den wir gegen Quittung übernehmen und sicher aufbewahren.' },
+  { frage: 'Bringen Sie Reinigungsmittel und Material mit?', antwort: 'Ja, alles. Wir verwenden wo möglich ökologische Mittel. Haben Sie spezielle Wünsche für Oberflächen, sagen Sie es uns.' },
+  { frage: 'Wie kommt die Offerte zustande?', antwort: 'Nach Ihrer Anfrage klären wir die Details am Telefon oder bei einer kurzen Besichtigung. Die Offerte ist kostenlos und unverbindlich.' },
+];
+const GALERIE = [
+  { titel: 'Unterhaltsreinigung', ort: 'Wiedikon', ph: 'Foto: Wohnzimmer nach Reinigung', d: ['1 / 8', 'span 2'] },
+  { titel: 'Büroreinigung', ort: 'Oerlikon', ph: 'Foto: Büro', d: ['8 / 13', 'span 1'] },
+  { titel: 'Spezialreinigung', ort: 'Küsnacht', ph: 'Foto: Fenster und Storen', d: ['8 / 13', 'span 1'] },
+  { titel: 'Umzugsreinigung', ort: 'Seefeld', ph: 'Foto: Küche bei Abgabe', d: ['1 / 5', 'span 1'] },
+  { titel: 'Baureinigung', ort: 'Dübendorf', ph: 'Foto: Raum nach Umbau', d: ['5 / 9', 'span 1'] },
+  { titel: 'Praxisreinigung', ort: 'Altstetten', ph: 'Foto: Praxisraum', d: ['9 / 13', 'span 1'] },
+];
+const REFS = [
+  { text: 'Seit drei Jahren kommt Frau Brunner alle zwei Wochen. Wir mussten nie etwas nachbessern lassen. Zuverlässig, diskret und immer freundlich.', name: 'Martina K.', datum: 'vor 2 Wochen', sterne: 5 },
+  { text: 'Die Wohnungsabgabe lief ohne eine einzige Beanstandung. Die Verwaltung hat sogar nachgefragt, wer bei uns gereinigt hat.', name: 'Lukas Meier', datum: 'vor 1 Monat', sterne: 5 },
+  { text: 'Am Abend angefragt, am nächsten Tag hatte ich die Offerte. Termin auf die Minute eingehalten.', name: 'Priska W.', datum: 'vor 1 Monat', sterne: 5 },
+  { text: 'Unsere Praxis wird frühmorgens gereinigt. Die Patientinnen merken nur, dass alles sauber ist. Genau so soll es sein.', name: 'Daniel Frei', datum: 'vor 2 Monaten', sterne: 5 },
+  { text: 'Nach dem Umbau waren die Fenster voller Farbspritzer. Danach sahen sie aus wie neu. Kleiner Abzug, weil der Termin einmal verschoben werden musste.', name: 'Ruth Baumann', datum: 'vor 3 Monaten', sterne: 4 },
+  { text: 'Sehr angenehmer Kontakt per WhatsApp, klare Offerte, faire Abrechnung. Gerne wieder.', name: 'Sandro M.', datum: 'vor 4 Monaten', sterne: 5 },
+];
+const ORTE = ['Zürich', 'Oerlikon', 'Altstetten', 'Wiedikon', 'Seefeld', 'Wollishofen', 'Schwamendingen', 'Zollikon', 'Küsnacht', 'Kilchberg', 'Adliswil', 'Wallisellen', 'Dübendorf', 'Schlieren', 'Dietikon', 'Regensdorf'];
+const EMPTY = { leistung: '', name: '', email: '', telefon: '', ort: '', nachricht: '' };
+const FULL = '1 / -1';
+const WIDE = {
+  hdLogo: '1 / 4', m1: '1 / 4', m2: '4 / 7', m3: '7 / 10',
+  heroImg: '1 / 13', heroLead: '1 / 13',
+  secNum: '1 / 4', secH: '1 / 11', secSmall: '1 / 4', secNote: '4 / 13',
+  lNum: '1 / 2', lTitle: '2 / 5', lImg: '9 / 13', oneText: '4 / 9', oneImg: '10 / 13',
+  refQ: '6 / 13', refCtl: '1 / 5', lsH: '1 / 7', lsP: '8 / 13', gebWall: '7 / 13',
+  gebL: '1 / 6', gebR: '4 / 10', gebMap: '10 / 13',
+  ueImg: '1 / 6', ueText: '7 / 13',
+  faqL: '1 / 5', faqR: '6 / 13', konL: '1 / 6', konR: '7 / 13',
+  ft0: '1 / 4', ft1: '4 / 7', ft2: '7 / 10',
+};
+
+class Component extends DCLogic {
+  state = { narrow: false, active: 0, userPaused: false, stopped: false, hover: false, focus: false, hidden: false, reduced: false, form: { ...EMPTY }, errors: {}, status: 'idle', sentName: '' };
+  trackRef = React.createRef(); menuRef = React.createRef(); successRef = React.createRef(); selectRef = React.createRef();
+
+  componentDidMount() {
+    this.onResize = () => { const n = window.innerWidth < 1000; if (n !== this.state.narrow) this.setState({ narrow: n }); };
+    this.onResize(); window.addEventListener('resize', this.onResize);
+    this.mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    this.onMq = () => this.setState({ reduced: this.mq.matches }); this.onMq();
+    this.mq.addEventListener('change', this.onMq);
+    this.onVis = () => this.setState({ hidden: document.hidden });
+    document.addEventListener('visibilitychange', this.onVis);
+    this.timer = setInterval(() => this.tick(), 6500);
+    const p = new URLSearchParams(location.search).get('leistung');
+    if (p && ALL.some(l => l.slug === p)) this.setState(s => ({ form: { ...s.form, leistung: p } }));
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize);
+    this.mq.removeEventListener('change', this.onMq);
+    document.removeEventListener('visibilitychange', this.onVis);
+    clearInterval(this.timer);
+  }
+  componentDidUpdate(_, prev) {
+    if (prev.status !== 'success' && this.state.status === 'success') this.successRef.current?.focus();
+  }
+  n() { return parseInt(this.props.anzahlLeistungen ?? '4', 10); }
+  running() { const s = this.state; return !s.stopped && !s.userPaused && !s.reduced; }
+  tick() {
+    const s = this.state;
+    if (!this.running() || s.hover || s.focus || s.hidden) return;
+    this.go((s.active + 1) % this.pages());
+  }
+  perView() { return this.state.narrow ? 1 : 3; }
+  pages() { return Math.max(1, REFS.length - this.perView() + 1); }
+  step() { const t = this.trackRef.current; const c = t && t.children[0]; const d = t && t.children[1]; return c ? (d ? d.offsetLeft - c.offsetLeft : c.offsetWidth) : 1; }
+  go(i) {
+    const t = this.trackRef.current; if (!t) return;
+    t.scrollTo({ left: i * this.step(), behavior: this.state.reduced ? 'auto' : 'smooth' });
+    this.setState({ active: i });
+  }
+  onScroll = () => {
+    const t = this.trackRef.current; if (!t || !t.clientWidth) return;
+    const i = Math.min(this.pages() - 1, Math.round(t.scrollLeft / this.step()));
+    if (i !== this.state.active) this.setState({ active: i });
+  };
+  onUser = () => { if (!this.state.stopped) this.setState({ stopped: true }); };
+  onWheel = (e) => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) this.onUser(); };
+  togglePlay = () => {
+    if (this.running()) this.setState({ userPaused: true });
+    else this.setState({ userPaused: false, stopped: false });
+  };
+  jumpToForm = (slug) => (e) => {
+    e.preventDefault();
+    this.setState(s => ({ form: { ...s.form, leistung: slug }, status: s.status === 'success' ? 'idle' : s.status }));
+    try { history.replaceState(null, '', '?leistung=' + slug + '#kontakt'); } catch (_) {}
+    const el = document.getElementById('kontakt');
+    if (el) window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 68);
+    setTimeout(() => this.selectRef.current?.focus({ preventScroll: true }), 0);
+  };
+  setField = (k) => (e) => {
+    const v = e.target.value;
+    this.setState(s => { const errors = { ...s.errors }; delete errors[k]; return { form: { ...s.form, [k]: v }, errors }; });
+  };
+  onSubmit = (e) => {
+    e.preventDefault();
+    if (e.target.elements.firma_website?.value) return;
+    const f = this.state.form, errs = {};
+    if (this.n() > 1 && !f.leistung) errs.leistung = 'Bitte wählen Sie eine Leistung oder «Andere / weiss noch nicht».';
+    if (!f.name.trim()) errs.name = 'Bitte geben Sie Ihren Namen an.';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(f.email.trim())) errs.email = f.email.trim() ? 'Diese E-Mail-Adresse scheint unvollständig. Beispiel: name@beispiel.ch' : 'Bitte geben Sie Ihre E-Mail-Adresse an.';
+    if (!f.ort.trim()) errs.ort = 'Bitte geben Sie PLZ und Ort an, z.B. 8004 Zürich.';
+    if (Object.keys(errs).length) {
+      this.setState({ errors: errs });
+      const first = ['leistung', 'name', 'email', 'ort'].find(k => errs[k]);
+      setTimeout(() => document.getElementById('f-' + first)?.focus(), 0);
+      return;
+    }
+    this.setState({ status: 'sending', errors: {} });
+    setTimeout(() => this.setState({ status: 'success', sentName: f.name.trim().split(' ')[0], form: { ...EMPTY } }), 900);
+  };
+
+  renderVals() {
+    const n = this.n(), messenger = this.props.messengerAktiv ?? true, showImg = this.props.kartenbilder ?? true;
+    const s = this.state, nar = s.narrow;
+    const heroRatio = nar ? '4/3' : '21/9';
+    const h6 = nar ? { panel: FULL, panelPr: 'clamp(28px,4vw,64px)', minH: 'auto', img: FULL, imgRow: '2', imgM: '0', imgMinH: '360px' }
+      : { panel: '1 / 7', panelPr: 'clamp(28px,4vw,64px)', minH: '600px', img: '7 / 13', imgRow: '1', imgM: '0', imgMinH: '0px' };
+    const SPANS = n === 2 ? ['1 / 8', '8 / 13'] : ['1 / 8', '8 / 13', '1 / 6', '6 / 13'];
+    const CARD = [
+      { bg: '#FFFFFF', fg: '#0E3A2C', numColor: '#256B35', imgBg: '#DAE5DC', ratio: '16/9' },
+      { bg: '#0E3A2C', fg: '#FFFFFF', numColor: '#B8E34A', imgBg: '#1E5241', ratio: '4/3' },
+      { bg: '#E3EFD9', fg: '#0E3A2C', numColor: '#256B35', imgBg: '#CCE0BD', ratio: '4/3' },
+      { bg: '#FFFFFF', fg: '#0E3A2C', numColor: '#256B35', imgBg: '#DAE5DC', ratio: '16/9' }];
+    const c = nar ? Object.fromEntries(Object.keys(WIDE).map(k => [k, FULL])) : { ...WIDE };
+    if (nar) { c.hdLogo = '1 / 3'; c.m1 = 'auto'; c.m2 = 'auto'; c.m3 = 'auto'; }
+    const leistungen = ALL.slice(0, n).map((l, i) => {
+      const cta = messenger ? l.cta : 'formular';
+      return { ...l, hid: 'l-' + l.slug, row: nar ? 'auto' : '1', imgCol: nar ? FULL : (i % 2 ? '7 / 13' : '1 / 7'), txtCol: nar ? FULL : (!showImg ? '1 / 9' : (i % 2 ? '1 / 6' : '8 / 13')), num: String(i + 1).padStart(2, '0'),
+        bodyCol: nar ? FULL : (showImg ? '5 / 9' : '5 / 11'),
+        imgId: 'v3-bild-' + l.slug, imgPh: 'Foto: ' + l.titel,
+        hasWa: cta !== 'formular', hasForm: cta !== 'messenger',
+        waHref: wa('Guten Tag, ich interessiere mich für: ' + l.titel + '. Ort: … / Wunschtermin: …'),
+        formHref: '?leistung=' + l.slug + '#kontakt', onForm: this.jumpToForm(l.slug) };
+    });
+    const groups = [{ titel: 'Allgemein', items: FAQ_ALLG }, ...leistungen.filter(l => l.faq.length).map(l => ({ titel: l.titel, items: l.faq }))];
+    const total = groups.reduce((a, g) => a + g.items.length, 0);
+    const grouped = groups.length >= 2 && total >= 6;
+    const faqGroups = grouped ? groups.map(g => ({ ...g, showTitle: true })) : [{ titel: '', showTitle: false, items: groups.flatMap(g => g.items) }];
+    const running = this.running();
+    const err = s.errors, bc = {}, inv = {};
+    ['leistung', 'name', 'email', 'ort'].forEach(k => { bc[k] = err[k] ? '#B3261E' : '#768C7F'; inv[k] = err[k] ? 'true' : undefined; });
+    return {
+      wide: !nar, narrow: nar, c, heroRatio, h6,
+      heroSplit: (this.props.heroLayout ?? 'Foto breit') === 'Split', heroWide: (this.props.heroLayout ?? 'Foto breit') !== 'Split',
+      hb: nar ? { img: FULL, panel: FULL, ratio: '4/3' } : { img: '1 / 9', panel: '9 / 13', ratio: '4/3' },
+      cols: nar ? 'repeat(4,minmax(0,1fr))' : 'repeat(12,minmax(0,1fr))',
+      metaCols: nar ? 'minmax(0,1fr)' : 'repeat(12,minmax(0,1fr))',
+      gridCols: Array.from({ length: nar ? 4 : 12 }, (_, i) => i),
+      showGrid: this.props.rasterZeigen ?? false,
+      formCols: nar ? 'minmax(0,1fr)' : 'repeat(2,minmax(0,1fr))',
+      ueCols: nar ? 'minmax(0,1fr)' : 'repeat(2,minmax(0,1fr))',
+      orteCols: nar ? 2 : 3,
+      ctlDir: nar ? 'row' : 'column', ctlMt: nar ? '32px' : '0px',
+      lstTitle: n === 1 ? ALL[0].titel : 'Leistungen',
+      navItems: [
+        { label: n === 1 ? ALL[0].titel : 'Leistungen', href: '#leistungen' },
+        { label: 'Über uns', href: '#ueber-uns' }, { label: 'FAQ', href: '#faq' }, { label: 'Kontakt', href: '#kontakt' }],
+      menuRef: this.menuRef,
+      closeMenu: () => { if (this.menuRef.current) this.menuRef.current.open = false; },
+      heroWa: messenger, heroNoWa: !messenger,
+      heroWaHref: wa('Guten Tag, ich möchte eine Offerte. Leistung: … / Ort: … / Wunschtermin: …'),
+      kontaktWaHref: wa('Guten Tag, ich habe eine Frage zu Ihren Reinigungsleistungen.'),
+      messenger, multi: n > 1, single: n === 1, first: leistungen[0], leistungen, bilder: showImg,
+      refs: REFS.map((r, i) => ({ ...r, aria: 'Bewertung ' + (i + 1) + ' von ' + REFS.length, initial: r.name[0], starsLabel: r.sterne + ' von 5 Sternen', stars: [0,1,2,3,4].map(k => k < r.sterne ? '#0E3A2C' : '#C9D3CB') })),
+      galCols: nar ? 'repeat(2,minmax(0,1fr))' : 'repeat(12,minmax(0,1fr))',
+      galerie: GALERIE.map((g, i) => ({ ...g, id: 'v8-galerie-' + i, col: nar ? (i === 0 || i === GALERIE.length - 1 ? '1 / -1' : 'auto') : g.d[0], row: nar ? 'auto' : g.d[1], minH: nar ? (i === 0 ? '240px' : '160px') : '220px' })),
+      cardW: nar ? '86%' : 'calc((100% - 2 * clamp(12px,1.6vw,24px)) / 3)',
+      dots: Array.from({ length: Math.max(1, REFS.length - (nar ? 1 : 3) + 1) }, (_, i) => ({ num: String(i + 1).padStart(2, '0'), label: 'Seite ' + (i + 1) + ' von ' + Math.max(1, REFS.length - (nar ? 1 : 3) + 1),
+        current: i === s.active ? 'true' : undefined, deco: i === s.active ? 'underline' : 'none', op: i === s.active ? '1' : '0.35', w: i === s.active ? '28px' : '10px', color: i === s.active ? '#B8E34A' : '#B7CDBF',
+        onClick: () => { this.setState({ stopped: true }); this.go(i); } })),
+      trackRef: this.trackRef, onScroll: this.onScroll, onUser: this.onUser, onWheel: this.onWheel,
+      onHoverIn: () => this.setState({ hover: true }), onHoverOut: () => this.setState({ hover: false }),
+      onFocusIn: () => this.setState({ focus: true }), onFocusOut: () => this.setState({ focus: false }),
+      togglePlay: this.togglePlay, isRunning: running, notRunning: !running,
+      playLabel: running ? 'Automatisches Weiterschalten pausieren' : 'Automatisches Weiterschalten starten',
+      orte: ORTE.map((o, i) => ({ name: o, color: i % 2 ? '#768C7F' : '#0E3A2C' })), faqGroups,
+      form: s.form, on: { leistung: this.setField('leistung'), name: this.setField('name'), email: this.setField('email'), telefon: this.setField('telefon'), ort: this.setField('ort'), nachricht: this.setField('nachricht') },
+      err, bc, inv, selectRef: this.selectRef, onSubmit: this.onSubmit,
+      sending: s.status === 'sending', submitLabel: s.status === 'sending' ? 'Wird gesendet …' : 'Anfrage senden',
+      showForm: s.status !== 'success', showSuccess: s.status === 'success', successRef: this.successRef, sentName: s.sentName,
+    };
+  }
+}
+</script>
+</body>
+</html>
