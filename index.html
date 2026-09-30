@@ -542,7 +542,8 @@ class Component extends DCLogic {
       const hero = document.getElementById('hero');
       const heroEnd = hero ? hero.getBoundingClientRect().bottom + y - 68 : 400;
       const menuOpen = this.menuRef.current && this.menuRef.current.open;
-      const hide = dy > 0 && y > heroEnd && !menuOpen;
+      if (this.holdUntil && (y > this.holdUntil || dy < 0)) this.holdUntil = null;
+      const hide = dy > 0 && y > heroEnd && !menuOpen && !this.holdUntil;
       if (hide !== this.state.hdrHidden) this.setState({ hdrHidden: hide });
     };
     window.addEventListener('scroll', this.onPageScroll, { passive: true });
@@ -585,8 +586,8 @@ class Component extends DCLogic {
     if (this.menuRef.current) this.menuRef.current.open = false;
     if (!el) return;
     e.preventDefault();
-    const start = window.scrollY, target = Math.max(0, el.getBoundingClientRect().top + start);
-    const done = () => { this.navScrolling = false; this.lastY = window.scrollY; this.setState({ hdrHidden: target > 0 }); try { history.replaceState(null, '', href); } catch (_) {} };
+    const start = window.scrollY, hdrH = document.querySelector('header')?.offsetHeight || 68, target = Math.max(0, el.getBoundingClientRect().top + start - hdrH);
+    const done = () => { this.navScrolling = false; this.lastY = window.scrollY; this.holdUntil = window.scrollY + 120; this.setState({ hdrHidden: false }); try { history.replaceState(null, '', href); } catch (_) {} };
     this.navScrolling = true;
     if (this.state.reduced) { window.scrollTo(0, target); done(); return; }
     const dist = target - start, dur = Math.min(600, 300 + Math.abs(dist) / 12), t0 = performance.now();
