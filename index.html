@@ -83,7 +83,6 @@ details:not([open])>summary [data-menu-open],details[open]>summary [data-menu-cl
             <div style="margin-top:auto;padding-top:40px;display:flex;flex-direction:column;gap:4px">
               <a href="tel:+41442143860" style="display:inline-flex;align-items:center;min-height:44px;font-size:19px;font-weight:500;color:#0B2545;text-decoration:underline;text-underline-offset:4px;font-variant-numeric:tabular-nums">044 214 38 60</a>
               <a href="mailto:info@prreinigung.ch" style="display:inline-flex;align-items:center;min-height:44px;font-size:19px;font-weight:500;color:#0B2545;text-decoration:underline;text-underline-offset:4px">info@prreinigung.ch</a>
-              <p style="margin-top:12px;font-size:15px;line-height:1.45;color:#46566E">PR Reinigung Max Mustermann<br>Badenerstrasse 120<br>8004 Zürich</p>
             </div>
           </div>
         </details>
@@ -547,16 +546,25 @@ class Component extends DCLogic {
       const heroEnd = hero ? hero.getBoundingClientRect().bottom + y - 68 : 400;
       const menuOpen = this.menuRef.current && this.menuRef.current.open;
       if (this.holdUntil && (y > this.holdUntil || dy < 0)) this.holdUntil = null;
-      const hide = dy > 0 && y > heroEnd && !menuOpen && !this.holdUntil;
+      const hide = !this.state.narrow && dy > 0 && y > heroEnd && !menuOpen && !this.holdUntil;
       if (hide !== this.state.hdrHidden) this.setState({ hdrHidden: hide });
     };
     window.addEventListener('scroll', this.onPageScroll, { passive: true });
+    this.onDocClick = (e) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey) return;
+      const a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!a) return; const href = a.getAttribute('href');
+      if (href.length < 2 || href === '#main') return;
+      this.scrollToSection(href)(e);
+    };
+    document.addEventListener('click', this.onDocClick);
     const p = new URLSearchParams(location.search).get('leistung');
     if (p && ALL.some(l => l.slug === p)) this.setState(s => ({ form: { ...s.form, leistung: p } }));
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this.onResize);
     window.removeEventListener('scroll', this.onPageScroll);
+    document.removeEventListener('click', this.onDocClick);
     this.mq.removeEventListener('change', this.onMq);
     document.removeEventListener('visibilitychange', this.onVis);
     clearInterval(this.timer);
@@ -608,10 +616,9 @@ class Component extends DCLogic {
   jumpToForm = (slug) => (e) => {
     e.preventDefault();
     this.setState(s => ({ form: { ...s.form, leistung: slug }, status: s.status === 'success' ? 'idle' : s.status }));
+    this.scrollToSection('#kontakt')(e);
     try { history.replaceState(null, '', '?leistung=' + slug + '#kontakt'); } catch (_) {}
-    const el = document.getElementById('kontakt');
-    if (el) window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 68);
-    setTimeout(() => this.selectRef.current?.focus({ preventScroll: true }), 0);
+    setTimeout(() => this.selectRef.current?.focus({ preventScroll: true }), 650);
   };
   setField = (k) => (e) => {
     const v = e.target.value;
