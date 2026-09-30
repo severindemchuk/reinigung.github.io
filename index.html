@@ -13,16 +13,18 @@
 <script src="./image-slot.js"></script>
 <style>
 html{color-scheme:light;scroll-behavior:auto}
-body{margin:0;background:#FFFFFF;color:#0E3A2C;font-family:"Hanken Grotesk",ui-sans-serif,system-ui,sans-serif;font-size:18px;line-height:1.45;-webkit-font-smoothing:antialiased}
+html,body,#dc-root,.sc-host{height:auto!important;min-height:0!important;overflow:visible!important}
+body{margin:0;background:#FFFFFF;color:#0B2545;font-family:"Hanken Grotesk",ui-sans-serif,system-ui,sans-serif;font-size:18px;line-height:1.45;-webkit-font-smoothing:antialiased}
 *,*::before,*::after{box-sizing:border-box}
-a{color:#0E3A2C;text-underline-offset:3px;text-decoration-thickness:1px}
-a:hover{color:#256B35}
+a{color:#0B2545;text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:#1D5FA8}
 h1,h2,h3,p,ul,ol,figure,blockquote{margin:0}
-:focus-visible{outline:2px solid #256B35;outline-offset:3px}
+:focus-visible{outline:2px solid #1D5FA8;outline-offset:3px}
 [data-dark] :focus-visible{outline-color:#FFFFFF}
 summary{list-style:none}
 summary::-webkit-details-marker{display:none}
 details[open]>summary [data-icon]{transform:rotate(45deg)}
+details:not([open])>summary [data-menu-open],details[open]>summary [data-menu-closed]{display:none}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </helmet>
@@ -31,47 +33,55 @@ details[open]>summary [data-icon]{transform:rotate(45deg)}
   <div aria-hidden="true" style="position:fixed;inset:0;z-index:100;pointer-events:none">
     <div style="max-width:1120px;height:100%;margin:0 auto;padding:0 clamp(20px,3vw,48px);display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px)">
       <sc-for list="{{ gridCols }}" as="g" hint-placeholder-count="12">
-        <div style="background:rgba(37,107,53,0.07);border-left:1px solid rgba(37,107,53,0.25);border-right:1px solid rgba(37,107,53,0.25)"></div>
+        <div style="background:rgba(29,95,168,0.07);border-left:1px solid rgba(29,95,168,0.25);border-right:1px solid rgba(29,95,168,0.25)"></div>
       </sc-for>
     </div>
   </div>
 </sc-if>
 
-<a href="#main" style="position:absolute;left:-9999px;top:12px;z-index:50;background:#0E3A2C;color:#FFFFFF;padding:10px 16px;font-weight:700" style-focus="left:16px">Zum Inhalt springen</a>
+<a href="#main" style="position:absolute;left:-9999px;top:12px;z-index:50;background:#0B2545;color:#FFFFFF;padding:10px 16px;font-weight:700" style-focus="left:16px">Zum Inhalt springen</a>
 
-<header data-section="header" style="position:sticky;top:0;z-index:20;background:#F5F4F0;border-bottom:1px solid #0E3A2C">
+<header data-section="header" style="position:sticky;top:0;z-index:20;background:#F5F4F0;border-bottom:1px solid #0B2545;transform:{{ hdrT }};transition:transform .25s ease">
   <div style="max-width:1120px;margin:0 auto;padding:0 clamp(20px,3vw,48px);height:68px;display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);align-items:center">
-    <a href="/" style="grid-column:{{ c.hdLogo }};grid-row:1;text-decoration:none;color:#0E3A2C;font-weight:700;font-size:19px;letter-spacing:-0.02em;line-height:1;display:flex;align-items:center;min-height:44px">Brunner<br>Reinigung</a>
+    <sc-if value="{{ logoC }}" hint-placeholder-val="{{ true }}"><a href="/" style="grid-column:{{ c.hdLogo }};grid-row:1;text-decoration:none;color:#0B2545;font-weight:700;font-size:19px;letter-spacing:-0.02em;line-height:1;display:flex;align-items:center;gap:10px;min-height:44px" aria-label="PR Reinigung – Startseite"><span aria-hidden="true" style="display:flex;align-items:center;gap:8px"><span style="position:relative;flex:none;width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center"><span style="position:absolute;inset:0;border-radius:50%;background:#0B2545"></span><span style="position:absolute;top:1px;right:-2px;width:11px;height:11px;border-radius:50%;background:#9CD4FF;box-shadow:0 0 0 3px #F5F4F0"></span><span style="position:relative;font-size:21px;font-weight:700;letter-spacing:-0.05em;line-height:1;color:#FFFFFF;margin-top:-3px">pr</span></span><span style="font-size:20px;font-weight:700;letter-spacing:-0.035em;line-height:1;color:#0B2545">reinigung</span></span></a></sc-if><sc-if value="{{ logoA }}" hint-placeholder-val="{{ false }}"><a href="/" style="grid-column:{{ c.hdLogo }};grid-row:1;text-decoration:none;color:#0B2545;font-weight:700;font-size:19px;letter-spacing:-0.02em;line-height:1;display:flex;align-items:center;gap:10px;min-height:44px" aria-label="PR Reinigung – Startseite"><span aria-hidden="true" style="position:relative;flex:none;width:36px;height:36px;background:#0B2545;color:#FFFFFF;display:inline-flex;align-items:flex-end;padding:0 0 5px 5px;font-weight:700;font-size:17px;letter-spacing:-0.06em;line-height:1">PR<span style="position:absolute;top:6px;right:6px;width:6px;height:6px;background:#9CD4FF"></span></span><span style="font-size:17px;letter-spacing:-0.02em">Reinigung</span></a></sc-if><sc-if value="{{ logoB }}" hint-placeholder-val="{{ false }}"><a href="/" style="grid-column:{{ c.hdLogo }};grid-row:1;text-decoration:none;color:#0B2545;font-weight:700;font-size:19px;letter-spacing:-0.02em;line-height:1;display:flex;align-items:center;gap:10px;min-height:44px" aria-label="PR Reinigung – Startseite"><span aria-hidden="true" style="display:flex;align-items:center;gap:10px"><span style="font-size:30px;letter-spacing:-0.06em;line-height:0.8">PR</span><span style="width:3px;align-self:stretch;background:#9CD4FF"></span><span style="display:flex;flex-direction:column;gap:3px;line-height:1"><span style="font-size:15px;letter-spacing:-0.01em">Reinigung</span><span style="font-size:12px;font-weight:500;color:#46566E">Zürich</span></span></span></a></sc-if>
     <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
-      <nav aria-label="Hauptnavigation" style="grid-column:4 / 10">
-        <ul style="list-style:none;padding:0;display:grid;grid-template-columns:repeat(4,max-content);column-gap:clamp(16px,2.4vw,36px)">
+      <nav aria-label="Hauptnavigation" style="grid-column:1 / -1;grid-row:1;justify-self:center">
+        <ul style="list-style:none;padding:0;display:grid;grid-template-columns:repeat(5,max-content);column-gap:clamp(16px,2vw,28px)">
           <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
-            <li><a href="{{ n.href }}" style="color:#0E3A2C;text-decoration:none;font-size:15px;font-weight:500;display:inline-flex;align-items:center;min-height:44px" style-hover="color:#256B35">{{ n.label }}</a></li>
+            <li><a href="{{ n.href }}" style="color:#0B2545;text-decoration:none;font-size:15px;font-weight:500;display:inline-flex;align-items:center;min-height:44px" style-hover="color:#1D5FA8">{{ n.label }}</a></li>
           </sc-for>
         </ul>
       </nav>
-      <div style="grid-column:10 / 13;display:flex;justify-content:flex-end;align-items:center;gap:20px">
-        <a href="tel:+41442143860" style="color:#0E3A2C;text-decoration:none;font-size:15px;font-weight:700;display:inline-flex;align-items:center;min-height:44px;font-variant-numeric:tabular-nums">044 214 38 60</a>
-        <a href="#kontakt" style="display:inline-flex;align-items:center;min-height:44px;padding:0 16px;background:#0E3A2C;border-radius:4px;color:#FFFFFF;text-decoration:none;font-size:15px;font-weight:700" style-hover="background:#B8E34A;color:#0E3A2C">Offerte</a>
+      <div style="grid-column:10 / 13;grid-row:1;display:flex;justify-content:flex-end;align-items:center;gap:20px;position:relative">
+        <a href="tel:+41442143860" style-hover="color:#1D5FA8" style="color:#0B2545;text-decoration:underline;text-underline-offset:4px;font-size:15px;font-weight:700;display:inline-flex;align-items:center;min-height:44px;font-variant-numeric:tabular-nums">044 214 38 60</a>
+        <a href="#kontakt" style="display:inline-flex;align-items:center;min-height:44px;padding:0 16px;background:#0B2545;border-radius:4px;color:#FFFFFF;text-decoration:none;font-size:15px;font-weight:700" style-hover="background:#9CD4FF;color:#0B2545">Offerte</a>
       </div>
     </sc-if>
     <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
       <div style="grid-column:1 / -1;grid-row:1;justify-self:end;display:flex;align-items:center;gap:4px">
-        <a href="tel:+41442143860" aria-label="Anrufen: 044 214 38 60" style="width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;color:#0E3A2C">
+        <a href="tel:+41442143860" aria-label="Anrufen: 044 214 38 60" style="width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;color:#0B2545">
           <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 3.5h3.2l1.6 4.2-2.1 1.4a11 11 0 0 0 7.2 7.2l1.4-2.1 4.2 1.6V19a1.5 1.5 0 0 1-1.6 1.5A16.5 16.5 0 0 1 3.5 5.1 1.5 1.5 0 0 1 5 3.5z"></path></svg>
         </a>
-        <a href="#kontakt" style="display:inline-flex;align-items:center;min-height:44px;padding:0 14px;background:#0E3A2C;border-radius:4px;color:#FFFFFF;text-decoration:none;font-size:15px;font-weight:700">Offerte</a>
-        <details ref="{{ menuRef }}" style="position:relative">
-          <summary aria-label="Menü" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0E3A2C" stroke-width="2" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"></path></svg>
+        <a href="#kontakt" style="display:inline-flex;align-items:center;min-height:44px;padding:0 14px;background:#0B2545;border-radius:4px;color:#FFFFFF;text-decoration:none;font-size:15px;font-weight:700">Offerte</a>
+        <details ref="{{ menuRef }}">
+          <summary aria-label="Menü" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:4px">
+            <svg data-menu-closed="" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0B2545" stroke-width="2" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"></path></svg>
+            <svg data-menu-open="" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0B2545" stroke-width="2" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"></path></svg>
           </summary>
-          <nav aria-label="Hauptnavigation" style="position:absolute;right:0;top:calc(100% + 12px);min-width:240px;background:#FFFFFF;border:1px solid #0E3A2C">
-            <ul style="list-style:none;padding:0">
-              <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
-                <li style="border-top:1px solid #0E3A2C"><a href="{{ n.href }}" onClick="{{ closeMenu }}" style="display:flex;align-items:center;min-height:52px;padding:0 16px;color:#0E3A2C;text-decoration:none;font-size:20px;font-weight:700;letter-spacing:-0.01em">{{ n.label }}</a></li>
-              </sc-for>
-            </ul>
-          </nav>
+          <div style="position:fixed;left:0;right:0;top:69px;bottom:0;z-index:30;background:#F5F4F0;overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;padding:24px clamp(20px,3vw,48px) 32px">
+            <nav aria-label="Hauptnavigation">
+              <ul style="list-style:none;padding:0;border-bottom:1px solid #D6D3CA">
+                <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="5">
+                  <li style="border-top:1px solid #D6D3CA"><a href="{{ n.href }}" onClick="{{ closeMenu }}" style="display:flex;justify-content:space-between;align-items:center;min-height:68px;color:#0B2545;text-decoration:none;font-size:30px;font-weight:700;letter-spacing:-0.035em">{{ n.label }}<span aria-hidden="true" style="font-size:22px;color:#1D5FA8">→</span></a></li>
+                </sc-for>
+              </ul>
+            </nav>
+            <div style="margin-top:auto;padding-top:40px;display:flex;flex-direction:column;gap:4px">
+              <a href="tel:+41442143860" style="display:inline-flex;align-items:center;min-height:44px;font-size:19px;font-weight:500;color:#0B2545;text-decoration:underline;text-underline-offset:4px;font-variant-numeric:tabular-nums">044 214 38 60</a>
+              <a href="mailto:info@prreinigung.ch" style="display:inline-flex;align-items:center;min-height:44px;font-size:19px;font-weight:500;color:#0B2545;text-decoration:underline;text-underline-offset:4px">info@prreinigung.ch</a>
+              <p style="margin-top:12px;font-size:15px;line-height:1.45;color:#46566E">PR Reinigung Max Mustermann<br>Badenerstrasse 120<br>8004 Zürich</p>
+            </div>
+          </div>
         </details>
       </div>
     </sc-if>
@@ -83,23 +93,23 @@ details[open]>summary [data-icon]{transform:rotate(45deg)}
 <sc-if value="{{ heroSplit }}" hint-placeholder-val="{{ false }}">
 <section data-section="hero" id="hero" aria-labelledby="hero-h" style="scroll-margin-top:68px;background:#F5F4F0">
   <div style="max-width:1120px;margin:0 auto;padding:clamp(20px,3vw,48px) clamp(20px,3vw,48px) clamp(80px,9vw,136px);display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px)">
-    <div data-dark="" style="grid-column:{{ h6.panel }};grid-row:1;background:#0E3A2C;color:#FFFFFF;padding:clamp(28px,4vw,64px) {{ h6.panelPr }} clamp(28px,4vw,64px) clamp(28px,4vw,64px);display:flex;flex-direction:column;justify-content:space-between;gap:48px;min-height:{{ h6.minH }}">
-      <h1 id="hero-h" style="font-size:clamp(48px,6vw,88px);line-height:0.9;letter-spacing:-0.045em;font-weight:700;margin-left:-0.04em">Sauber.<br>Pünktlich.<br><span style="color:#B8E34A">Aus Zürich.</span></h1>
+    <div data-dark="" style="grid-column:{{ h6.panel }};grid-row:1;background:#0B2545;color:#FFFFFF;padding:clamp(28px,4vw,64px) {{ h6.panelPr }} clamp(28px,4vw,64px) clamp(28px,4vw,64px);display:flex;flex-direction:column;justify-content:space-between;gap:48px;min-height:{{ h6.minH }}">
+      <h1 id="hero-h" style="font-size:clamp(48px,6vw,88px);line-height:0.9;letter-spacing:-0.045em;font-weight:700;margin-left:-0.04em">Sauber.<br>Pünktlich.<br><span style="color:#9CD4FF">Aus Zürich.</span></h1>
       <div>
-        <p style="font-size:clamp(19px,1.5vw,22px);line-height:1.4;max-width:34ch;text-wrap:pretty">Unterhalts-, Umzugs-, Büro- und Spezialreinigung für Haushalte und kleine Betriebe. Festes Team, eigenes Material.</p>
+        <p style="font-size:clamp(19px,1.5vw,22px);line-height:1.4;max-width:34ch;text-wrap:pretty">PR Reinigung ist ein inhabergeführter Reinigungsbetrieb in Zürich. Wir reinigen Büros, Praxen, Treppenhäuser und Wohnungen – mit festen Teams und klaren Offerten.</p>
         <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:28px">
           <sc-if value="{{ heroWa }}" hint-placeholder-val="{{ true }}">
-            <a href="{{ heroWaHref }}" style="display:inline-flex;align-items:center;gap:10px;min-height:56px;padding:0 24px;background:#B8E34A;color:#0E3A2C;border-radius:4px;text-decoration:none;font-weight:700" style-hover="background:#FFFFFF;color:#0E3A2C"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 20l1.3-3.9A8.5 8.5 0 1 1 8 18.8L4 20z"></path></svg>Per WhatsApp anfragen</a>
-            <a href="#kontakt" style="display:inline-flex;align-items:center;min-height:56px;padding:0 24px;border:2px solid #FFFFFF;color:#FFFFFF;border-radius:4px;text-decoration:none;font-weight:700" style-hover="background:#FFFFFF;color:#0E3A2C">Offerte anfragen</a>
+            <a href="{{ heroWaHref }}" style="display:inline-flex;align-items:center;gap:10px;min-height:56px;padding:0 24px;background:#9CD4FF;color:#0B2545;border-radius:4px;text-decoration:none;font-weight:700" style-hover="background:#FFFFFF;color:#0B2545"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 20l1.3-3.9A8.5 8.5 0 1 1 8 18.8L4 20z"></path></svg>Per WhatsApp anfragen</a>
+            <a href="#kontakt" style="display:inline-flex;align-items:center;min-height:56px;padding:0 24px;border:2px solid #FFFFFF;color:#FFFFFF;border-radius:4px;text-decoration:none;font-weight:700" style-hover="background:#FFFFFF;color:#0B2545">Offerte anfragen</a>
           </sc-if>
           <sc-if value="{{ heroNoWa }}" hint-placeholder-val="{{ false }}">
-            <a href="#kontakt" style="display:inline-flex;align-items:center;min-height:56px;padding:0 24px;background:#B8E34A;color:#0E3A2C;border-radius:4px;text-decoration:none;font-weight:700" style-hover="background:#FFFFFF;color:#0E3A2C">Offerte anfragen</a>
+            <a href="#kontakt" style="display:inline-flex;align-items:center;min-height:56px;padding:0 24px;background:#9CD4FF;color:#0B2545;border-radius:4px;text-decoration:none;font-weight:700" style-hover="background:#FFFFFF;color:#0B2545">Offerte anfragen</a>
           </sc-if>
         </div>
-        <p style="margin-top:16px;font-size:14px;font-weight:500;color:#B7CDBF">Kostenlose Offerte · Antwort innert 24 Stunden</p>
+        <p style="margin-top:16px;font-size:14px;font-weight:500;color:#B9C9DE">Kostenlose Offerte · Antwort innert 24 Stunden</p>
       </div>
     </div>
-    <div style="grid-column:{{ h6.img }};grid-row:{{ h6.imgRow }};margin:{{ h6.imgM }};position:relative;z-index:1;min-height:{{ h6.imgMinH }};background:#DAE5DC">
+    <div style="grid-column:{{ h6.img }};grid-row:{{ h6.imgRow }};margin:{{ h6.imgM }};position:relative;z-index:1;min-height:{{ h6.imgMinH }};background:#DCE6F2">
       <image-slot id="v6-hero" shape="rect" placeholder="Hochformat-Foto: Reinigung in echter Wohnung"></image-slot>
     </div>
   </div>
@@ -108,23 +118,13 @@ details[open]>summary [data-icon]{transform:rotate(45deg)}
 <sc-if value="{{ heroWide }}" hint-placeholder-val="{{ true }}">
 <section data-section="hero" id="hero" aria-labelledby="hero-h" style="scroll-margin-top:68px;background:#F5F4F0">
   <div style="max-width:1120px;margin:0 auto;padding:clamp(40px,5vw,72px) clamp(20px,3vw,48px) clamp(80px,9vw,136px);display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:clamp(40px,5vw,72px)">
-    <h1 id="hero-h" style="grid-column:1 / -1;font-size:clamp(46px,7vw,104px);line-height:0.9;letter-spacing:-0.05em;font-weight:700;margin-left:-0.04em;color:#0E3A2C">Sauber. Pünktlich.<br><span style="color:#256B35">Aus Zürich.</span></h1>
-    <div style="grid-column:{{ hb.img }};aspect-ratio:{{ hb.ratio }};background:#DAE5DC">
-      <img src="images/v8-hero-wide.webp" alt="Reinigung in einer Wohnung" style="display:block;width:100%;height:100%;object-fit:cover">
-    </div>
-    <div data-dark="" style="grid-column:{{ hb.panel }};background:#0E3A2C;color:#FFFFFF;padding:clamp(28px,3vw,40px);display:flex;flex-direction:column;justify-content:space-between;gap:32px">
-      <p style="font-size:clamp(18px,1.4vw,20px);line-height:1.45;text-wrap:pretty">Unterhalts-, Umzugs-, Büro- und Spezialreinigung für Haushalte und kleine Betriebe. Festes Team, eigenes Material.</p>
-      <div>
-        <div style="display:flex;flex-direction:column;align-items:stretch;gap:8px">
-          <sc-if value="{{ heroWa }}" hint-placeholder-val="{{ true }}">
-            <a href="{{ heroWaHref }}" style="display:inline-flex;justify-content:center;align-items:center;gap:10px;min-height:56px;padding:0 20px;background:#B8E34A;color:#0E3A2C;border-radius:4px;text-decoration:none;font-weight:700" style-hover="background:#FFFFFF;color:#0E3A2C"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 20l1.3-3.9A8.5 8.5 0 1 1 8 18.8L4 20z"></path></svg>Per WhatsApp anfragen</a>
-            <a href="#kontakt" style="display:inline-flex;justify-content:center;align-items:center;min-height:56px;padding:0 20px;border:2px solid #FFFFFF;color:#FFFFFF;border-radius:4px;text-decoration:none;font-weight:700" style-hover="background:#FFFFFF;color:#0E3A2C">Offerte anfragen</a>
-          </sc-if>
-          <sc-if value="{{ heroNoWa }}" hint-placeholder-val="{{ false }}">
-            <a href="#kontakt" style="display:inline-flex;justify-content:center;align-items:center;min-height:56px;padding:0 20px;background:#B8E34A;color:#0E3A2C;border-radius:4px;text-decoration:none;font-weight:700" style-hover="background:#FFFFFF;color:#0E3A2C">Offerte anfragen</a>
-          </sc-if>
-        </div>
-        
+    <h1 id="hero-h" style="grid-column:1 / -1;font-size:clamp(46px,7vw,104px);line-height:0.9;letter-spacing:-0.05em;font-weight:700;margin-left:-0.04em;color:#0B2545">Sauber. Pünktlich.<br><span style="color:#1D5FA8">Aus Zürich.</span></h1>
+    <div style="grid-column:1 / -1;display:grid;grid-template-columns:{{ hb.cols }};column-gap:{{ hb.gap }}">
+      <div style="aspect-ratio:{{ hb.ratio }};background:#DCE6F2">
+        <img src="images/v8-hero-wide.webp" alt="Reinigung in einer Wohnung" style="display:block;width:100%;height:100%;object-fit:cover">
+      </div>
+      <div data-dark="" style="background:#0B2545;color:#FFFFFF;padding:clamp(28px,3vw,40px);display:flex;flex-direction:column;justify-content:flex-end;gap:20px">
+        <p style="font-size:clamp(18px,1.5vw,21px);line-height:1.45;text-wrap:pretty">PR Reinigung ist ein inhabergeführter Reinigungsbetrieb in Zürich. Wir reinigen Büros, Praxen, Treppenhäuser und Wohnungen – mit festen Teams und klaren Offerten.</p>
       </div>
     </div>
   </div>
@@ -135,67 +135,107 @@ details[open]>summary [data-icon]{transform:rotate(45deg)}
   <div style="max-width:1120px;margin:0 auto;padding:0 clamp(20px,3vw,48px) clamp(80px,9vw,136px)">
     <div style="display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:16px;align-items:end">
       <h2 id="leistungen-h" style="grid-column:{{ c.lsH }};font-size:clamp(40px,4.6vw,68px);line-height:0.92;letter-spacing:-0.045em;font-weight:700">{{ lstTitle }}</h2>
-      
     </div>
-    <div style="display:flex;flex-direction:column;gap:clamp(56px,7vw,104px);margin-top:clamp(40px,5vw,72px)">
-      <sc-for list="{{ leistungen }}" as="l" hint-placeholder-count="4">
-        <article id="{{ l.slug }}" aria-labelledby="{{ l.hid }}" style="scroll-margin-top:84px;display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:28px;align-items:center">
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+    <div style="margin-top:clamp(40px,5vw,72px);display:flex;flex-direction:column;gap:clamp(64px,7vw,112px)">
+      <sc-for list="{{ leistungen }}" as="l" hint-placeholder-count="5">
+        <article id="{{ l.slug }}" aria-labelledby="{{ l.hid }}" style="scroll-margin-top:84px;display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);align-items:center">
           <sc-if value="{{ bilder }}" hint-placeholder-val="{{ true }}">
-            <div style="grid-column:{{ l.imgCol }};grid-row:{{ l.row }};aspect-ratio:4/3;background:#DAE5DC">
-              <img src="{{ l.imgSrc }}" alt="{{ l.titel }}" loading="lazy" style="display:block;width:100%;height:100%;object-fit:cover">
+            <div style="grid-column:{{ l.imgCol }};grid-row:1;aspect-ratio:4/3;background:#DCE6F2">
+              <sc-if value="{{ l.hasPhoto }}" hint-placeholder-val="{{ false }}"><img src="{{ l.imgSrc }}" alt="{{ l.titel }}" loading="lazy" style="display:block;width:100%;height:100%;object-fit:cover"></sc-if>
+              <sc-if value="{{ l.noPhoto }}" hint-placeholder-val="{{ false }}"><image-slot id="{{ l.imgId }}" shape="rect" placeholder="{{ l.imgPh }}"></image-slot></sc-if>
             </div>
           </sc-if>
-          <div style="grid-column:{{ l.txtCol }};grid-row:{{ l.row }}">
-            <h3 id="{{ l.hid }}" lang="de-CH" style="font-size:clamp(28px,2.6vw,38px);line-height:1.02;letter-spacing:-0.035em;font-weight:700;hyphens:auto">{{ l.titel }}</h3>
-            <p style="margin-top:16px;font-size:17px;max-width:44ch;text-wrap:pretty">{{ l.einleitung }}</p>
-            <ul style="list-style:none;padding:0;margin-top:20px;display:flex;flex-direction:column;gap:2px;font-size:15px">
+          <div style="grid-column:{{ l.txtCol }};grid-row:1">
+            <h3 id="{{ l.hid }}" lang="de-CH" style="font-size:clamp(28px,2.8vw,40px);line-height:1.02;letter-spacing:-0.035em;font-weight:700;hyphens:auto;text-wrap:balance">{{ l.titel }}</h3>
+            <p style="margin-top:16px;font-size:17px;max-width:42ch;text-wrap:pretty">{{ l.einleitung }}</p>
+            <ul style="list-style:none;padding:0;margin-top:28px;display:flex;flex-direction:column;border-bottom:1px solid #D6D3CA;font-size:15px;line-height:1.4">
               <sc-for list="{{ l.umfang }}" as="u" hint-placeholder-count="5">
-                <li style="display:grid;grid-template-columns:18px 1fr"><span aria-hidden="true" style="color:#256B35">–</span><span>{{ u }}</span></li>
+                <li style="display:grid;grid-template-columns:24px 1fr;align-items:baseline;border-top:1px solid #D6D3CA;padding:10px 0"><span aria-hidden="true" style="color:#1D5FA8;font-weight:700">✓</span><span>{{ u }}</span></li>
               </sc-for>
             </ul>
-            <div style="display:flex;flex-wrap:wrap;gap:0 24px;margin-top:16px">
-              <sc-if value="{{ l.hasForm }}" hint-placeholder-val="{{ true }}">
-                
-              </sc-if>
-              <sc-if value="{{ l.hasWa }}" hint-placeholder-val="{{ false }}">
-                
-              </sc-if>
-            </div>
           </div>
         </article>
       </sc-for>
     </div>
-  </div>
-</section>
-
-<section data-section="referenzbilder" id="arbeiten" aria-labelledby="arbeiten-h" style="scroll-margin-top:68px;background:#FFFFFF">
-  <div style="max-width:1120px;margin:0 auto;padding:clamp(80px,9vw,136px) clamp(20px,3vw,48px)">
-    <div style="display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:16px;align-items:end">
-      <h2 id="arbeiten-h" style="grid-column:{{ c.lsH }};font-size:clamp(40px,4.6vw,68px);line-height:0.92;letter-spacing:-0.045em;font-weight:700">Referenzen</h2>
-      <p style="grid-column:{{ c.lsP }};font-size:17px;max-width:34ch">Einblick in abgeschlossene Einsätze in Zürich und Umgebung.</p>
-    </div>
-    <ul style="list-style:none;padding:0;margin-top:clamp(40px,5vw,72px);display:grid;grid-template-columns:{{ galCols }};grid-auto-flow:dense;gap:clamp(12px,1.6vw,24px)">
-      <sc-for list="{{ galerie }}" as="g" hint-placeholder-count="6">
-        <li style="grid-column:{{ g.col }};grid-row:{{ g.row }};min-height:0">
-          <figure style="height:100%;display:flex;flex-direction:column;gap:10px">
-            <div style="flex:1;min-height:{{ g.minH }};background:#DAE5DC">
-              <img src="{{ g.src }}" alt="{{ g.alt }}" loading="lazy" style="display:block;width:100%;height:100%;object-fit:cover">
+    </sc-if>
+    <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+    <ul style="list-style:none;padding:0;margin-top:32px;border-bottom:1px solid #0B2545">
+      <sc-for list="{{ leistungen }}" as="l" hint-placeholder-count="5">
+        <li>
+          <details id="{{ l.slug }}" name="leistungen" open="{{ l.open }}" style="scroll-margin-top:84px;border-top:1px solid #0B2545">
+            <summary aria-labelledby="{{ l.hid }}" style="display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:72px;padding:14px 0;cursor:pointer">
+              <span style="display:flex;flex-direction:column;gap:4px;min-width:0">
+                <h3 id="{{ l.hid }}" lang="de-CH" style="font-size:22px;line-height:1.1;letter-spacing:-0.025em;font-weight:700;hyphens:auto">{{ l.titel }}</h3>
+              </span>
+              <svg data-icon="" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B2545" stroke-width="2" aria-hidden="true" style="flex:none;transition:transform .15s"><path d="M12 3v18M3 12h18"></path></svg>
+            </summary>
+            <div style="padding:4px 0 28px">
+              <sc-if value="{{ bilder }}" hint-placeholder-val="{{ true }}">
+                <div style="aspect-ratio:16/9;background:#DCE6F2;margin-bottom:20px">
+                  <sc-if value="{{ l.hasPhoto }}" hint-placeholder-val="{{ false }}"><img src="{{ l.imgSrc }}" alt="{{ l.titel }}" loading="lazy" style="display:block;width:100%;height:100%;object-fit:cover"></sc-if>
+                  <sc-if value="{{ l.noPhoto }}" hint-placeholder-val="{{ false }}"><image-slot id="{{ l.imgId }}" shape="rect" placeholder="{{ l.imgPh }}"></image-slot></sc-if>
+                </div>
+              </sc-if>
+              <p style="font-size:17px;text-wrap:pretty">{{ l.einleitung }}</p>
+              <ul style="list-style:none;padding:0;margin-top:16px;display:flex;flex-direction:column;gap:2px;font-size:15px">
+                <sc-for list="{{ l.umfang }}" as="u" hint-placeholder-count="5">
+                  <li style="display:grid;grid-template-columns:18px 1fr"><span aria-hidden="true" style="color:#1D5FA8">–</span><span>{{ u }}</span></li>
+                </sc-for>
+              </ul>
+              <a href="{{ l.formHref }}" onClick="{{ l.onForm }}" style="display:inline-flex;align-items:center;min-height:44px;margin-top:12px;font-weight:700;color:#0B2545;text-decoration:underline;text-underline-offset:4px">Offerte anfragen →</a>
             </div>
-            <figcaption style="font-size:14px;display:flex;gap:12px"><span style="font-weight:700">{{ g.titel }}</span><span style="color:#44574C">{{ g.ort }}</span></figcaption>
-          </figure>
+          </details>
         </li>
       </sc-for>
     </ul>
+    </sc-if>
   </div>
 </section>
-<section data-section="referenzen" id="referenzen" aria-labelledby="referenzen-h" style="scroll-margin-top:68px;background:#B8E34A;color:#0E3A2C">
+
+
+<section data-section="preise" id="preise" aria-labelledby="preise-h" data-dark="" style="scroll-margin-top:68px;background:#0B2545;color:#FFFFFF">
+  <div style="max-width:1120px;margin:0 auto;padding:clamp(80px,9vw,136px) clamp(20px,3vw,48px)">
+    <div style="display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:clamp(40px,5vw,72px)">
+      <div style="grid-column:{{ c.faqL }}">
+        <h2 id="preise-h" style="font-size:clamp(40px,4.6vw,68px);line-height:0.92;letter-spacing:-0.045em;margin-bottom:28px;font-weight:700">Richtpreise</h2>
+        <p style="font-size:17px;max-width:32ch;text-wrap:pretty">Zur ersten Einschätzung. Die verbindliche Offerte erhalten Sie nach einer kurzen, kostenlosen Besichtigung.</p>
+      </div>
+      <div style="grid-column:{{ c.faqR }}">
+        <ul style="list-style:none;padding:0;border-bottom:1px solid rgba(255,255,255,0.35);display:grid;grid-template-columns:{{ priceCols }};column-gap:clamp(32px,5vw,72px)">
+          <sc-for list="{{ preise }}" as="p" hint-placeholder-count="3">
+            <li style="grid-column:1 / -1;display:grid;grid-template-columns:subgrid;row-gap:20px;align-items:start;border-top:1px solid rgba(255,255,255,0.35);padding:32px 0 28px">
+              <div style="min-width:0">
+                <h3 style="font-size:clamp(22px,2vw,28px);line-height:1.1;letter-spacing:-0.03em;font-weight:700">{{ p.titel }}</h3>
+                <p style="margin-top:8px;font-size:15px;color:#B9C9DE">{{ p.basis }}</p>
+                <ul style="list-style:none;padding:0;margin-top:16px;display:flex;flex-direction:column;gap:6px;font-size:15px;line-height:1.4">
+                  <sc-for list="{{ p.umfang }}" as="u" hint-placeholder-count="3">
+                    <li style="display:grid;grid-template-columns:18px 1fr"><span aria-hidden="true" style="color:#9CD4FF">–</span><span>{{ u }}</span></li>
+                  </sc-for>
+                </ul>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <p style="color:#9CD4FF;font-size:clamp(28px,2.8vw,40px);line-height:1;letter-spacing:-0.04em;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap">{{ p.preis }}</p>
+                <p style="font-size:14px;font-weight:500;color:#B9C9DE">{{ p.einheit }}</p>
+              </div>
+            </li>
+          </sc-for>
+        </ul>
+        <p style="margin-top:24px;font-size:14px;max-width:60ch;color:#B9C9DE">Alle Preise in CHF inkl. MwSt. Der effektive Preis hängt von Grösse, Verschmutzungsgrad und Intervall ab.</p>
+        <a href="#kontakt" style="display:inline-flex;align-items:center;min-height:56px;margin-top:32px;padding:0 28px;background:#9CD4FF;color:#0B2545;border-radius:4px;text-decoration:none;font-weight:700" style-hover="background:#FFFFFF;color:#0B2545">Offerte anfragen</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-section="referenzen" id="referenzen" aria-labelledby="referenzen-h" style="scroll-margin-top:68px;background:#F5F4F0;color:#0B2545">
   <div style="max-width:1120px;margin:0 auto;padding:clamp(80px,9vw,136px) clamp(20px,3vw,48px)">
     <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px">
       <h2 id="referenzen-h" style="font-size:clamp(40px,4.6vw,68px);line-height:0.92;letter-spacing:-0.045em;font-weight:700;max-width:12ch">Das sagen unsere Kunden</h2>
       <div style="display:flex;align-items:center;gap:16px">
         <p style="font-size:clamp(40px,4.6vw,68px);line-height:0.9;letter-spacing:-0.045em;font-weight:700;font-variant-numeric:tabular-nums">4,9</p>
         <div>
-          <div style="display:flex;gap:2px" role="img" aria-label="4,9 von 5 Sternen"><svg width="18" height="18" viewBox="0 0 24 24" fill="#0E3A2C" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"></path></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="#0E3A2C" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"></path></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="#0E3A2C" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"></path></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="#0E3A2C" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"></path></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="#0E3A2C" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"></path></svg></div>
+          <div style="display:flex;gap:2px" role="img" aria-label="4,9 von 5 Sternen"><svg width="18" height="18" viewBox="0 0 24 24" fill="#0B2545" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"></path></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="#0B2545" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"></path></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="#0B2545" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"></path></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="#0B2545" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"></path></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="#0B2545" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"></path></svg></div>
           <p style="margin-top:4px;font-size:14px;font-weight:500">38 Bewertungen auf Google</p>
         </div>
       </div>
@@ -210,29 +250,29 @@ details[open]>summary [data-icon]{transform:rotate(45deg)}
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="{{ st }}" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"></path></svg>
                 </sc-for>
               </div>
-              <span style="font-size:13px;color:#44574C">{{ r.datum }}</span>
+              <span style="font-size:13px;color:#46566E">{{ r.datum }}</span>
             </div>
             <blockquote style="flex:1;font-size:17px;line-height:1.5;text-wrap:pretty">{{ r.text }}</blockquote>
-            <figcaption style="display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid #DAE5DC">
-              <span aria-hidden="true" style="width:40px;height:40px;flex:none;border-radius:50%;background:#0E3A2C;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px">{{ r.initial }}</span>
-              <span style="display:flex;flex-direction:column;min-width:0"><span style="font-weight:700;font-size:15px">{{ r.name }}</span><span style="font-size:13px;color:#44574C">Google-Bewertung</span></span>
+            <figcaption style="display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid #DCE6F2">
+              <span aria-hidden="true" style="width:40px;height:40px;flex:none;border-radius:50%;background:#0B2545;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px">{{ r.initial }}</span>
+              <span style="display:flex;flex-direction:column;min-width:0"><span style="font-weight:700;font-size:15px">{{ r.name }}</span><span style="font-size:13px;color:#46566E">Google-Bewertung</span></span>
             </figcaption>
           </figure>
         </sc-for>
       </div>
       <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;margin-top:24px">
         <div style="display:flex;align-items:center;margin-left:-12px">
-          <button type="button" onClick="{{ togglePlay }}" aria-label="{{ playLabel }}" style="width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;background:transparent;border:0;cursor:pointer;color:#0E3A2C">
+          <button type="button" onClick="{{ togglePlay }}" aria-label="{{ playLabel }}" style="width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;background:transparent;border:0;cursor:pointer;color:#0B2545">
             <sc-if value="{{ isRunning }}" hint-placeholder-val="{{ true }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 4h4v16H6zM14 4h4v16h-4z"></path></svg></sc-if>
             <sc-if value="{{ notRunning }}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 3.5l14 8.5-14 8.5z"></path></svg></sc-if>
           </button>
           <sc-for list="{{ dots }}" as="d" hint-placeholder-count="4">
             <button type="button" onClick="{{ d.onClick }}" aria-label="{{ d.label }}" aria-current="{{ d.current }}" style="width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;background:transparent;border:0;cursor:pointer;padding:0">
-              <span style="display:block;width:{{ d.w }};height:10px;border-radius:5px;background:#0E3A2C;opacity:{{ d.op }};transition:width .2s"></span>
+              <span style="display:block;width:{{ d.w }};height:10px;border-radius:5px;background:#0B2545;opacity:{{ d.op }};transition:width .2s"></span>
             </button>
           </sc-for>
         </div>
-        <a href="#" style="display:inline-flex;align-items:center;min-height:44px;font-weight:700;color:#0E3A2C;text-decoration:underline;text-underline-offset:4px">Alle Bewertungen auf Google →</a>
+        <a href="https://maps.google.com" style="display:inline-flex;align-items:center;min-height:44px;font-weight:700;color:#0B2545;text-decoration:underline;text-underline-offset:4px">Alle Bewertungen auf Google →</a>
       </div>
     </div>
   </div>
@@ -241,19 +281,19 @@ details[open]>summary [data-icon]{transform:rotate(45deg)}
 <section data-section="ueber-uns" id="ueber-uns" aria-labelledby="ueber-h" style="scroll-margin-top:68px">
   <div style="max-width:1120px;margin:0 auto;padding:clamp(80px,9vw,136px) clamp(20px,3vw,48px)">
     <div style="display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:clamp(40px,5vw,72px);align-items:start">
-      <div style="grid-column:{{ c.ueImg }};aspect-ratio:4/5;background:#DAE5DC">
-        <img src="images/v3-portrait.webp" alt="Sandra Brunner" loading="lazy" style="display:block;width:100%;height:100%;object-fit:cover">
+      <div style="grid-column:{{ c.ueImg }};aspect-ratio:{{ ueRatio }};background:#DCE6F2">
+        <img src="images/v3-portrait.webp" alt="Max Mustermann, Inhaber" loading="lazy" style="display:block;width:100%;height:100%;object-fit:cover">
       </div>
       <div style="grid-column:{{ c.ueText }}">
-        <h2 id="ueber-h" style="font-size:clamp(40px,4.6vw,68px);line-height:0.92;letter-spacing:-0.045em;margin-bottom:28px;font-weight:700">Über uns</h2>
-        <p style="font-size:clamp(22px,2vw,30px);line-height:1.2;letter-spacing:-0.02em;font-weight:500;max-width:26ch;text-wrap:pretty">Zehn Jahre Spitalreinigung. Seit 2017 selbständig. Heute zu dritt, rund 60 Haushalte und Betriebe.</p>
-        <div style="margin-top:28px;display:grid;grid-template-columns:{{ ueCols }};column-gap:clamp(12px,1.6vw,24px);row-gap:16px;font-size:16px;text-wrap:pretty">
-          <p>Jede Kundin, jeder Kunde hat eine feste Ansprechperson. Wir kennen Ihre Räume und wissen, was Ihnen wichtig ist.</p>
-          
+        <h2 id="ueber-h" style="font-size:clamp(40px,4.6vw,68px);line-height:0.92;letter-spacing:-0.045em;margin-bottom:28px;font-weight:700">Klein, persönlich, verlässlich.</h2>
+        <div style="display:flex;flex-direction:column;gap:12px;max-width:52ch;font-size:17px;text-wrap:pretty">
+          <p>PR Reinigung ist ein inhabergeführter Betrieb. Sie haben eine feste Ansprechperson und ein festes Team, das Ihre Räume kennt.</p>
+          <p>Wir arbeiten dann, wenn es Ihnen passt: früh morgens, abends oder am Wochenende.</p>
+          <p>Wo möglich setzen wir ökologische Reinigungsmittel ein und dosieren sparsam.</p>
         </div>
-        <dl style="margin:40px 0 0;display:grid;grid-template-columns:{{ ueCols }};column-gap:clamp(12px,1.6vw,24px);row-gap:16px;font-size:15px">
-          <div style="border-top:1px solid #0E3A2C;padding-top:10px"><dt style="font-weight:700">Sandra Brunner</dt><dd style="margin:0">Inhaberin</dd></div>
-          
+        <dl style="margin:36px 0 0;display:flex;flex-wrap:wrap;gap:16px clamp(24px,3vw,48px);font-size:15px">
+          <div style="border-top:1px solid #0B2545;padding-top:10px;min-width:180px"><dt style="font-weight:700">Max Mustermann</dt><dd style="margin:0">Inhaber und Geschäftsführer</dd></div>
+          <div style="border-top:1px solid #0B2545;padding-top:10px;min-width:180px"><dt style="font-weight:700">Versichert</dt><dd style="margin:0">Betriebshaftpflicht bis CHF 5 Mio.</dd></div>
         </dl>
       </div>
     </div>
@@ -271,14 +311,14 @@ details[open]>summary [data-icon]{transform:rotate(45deg)}
         <sc-for list="{{ faqGroups }}" as="g" hint-placeholder-count="3">
           <div>
             <sc-if value="{{ g.showTitle }}" hint-placeholder-val="{{ true }}">
-              <h3 style="font-size:14px;font-weight:700;margin-bottom:12px;color:#256B35">{{ g.titel }}</h3>
+              <h3 style="font-size:14px;font-weight:700;margin-bottom:12px;color:#1D5FA8">{{ g.titel }}</h3>
             </sc-if>
-            <div style="border-bottom:1px solid #0E3A2C">
+            <div style="border-bottom:1px solid #0B2545">
               <sc-for list="{{ g.items }}" as="q" hint-placeholder-count="3">
-                <details name="faq" style="border-top:1px solid #0E3A2C">
+                <details name="faq" style="border-top:1px solid #0B2545">
                   <summary style="display:flex;justify-content:space-between;align-items:center;gap:24px;min-height:64px;padding:14px 0;cursor:pointer;font-size:clamp(19px,1.5vw,22px);font-weight:700;letter-spacing:-0.015em;line-height:1.25">
                     <span>{{ q.frage }}</span>
-                    <svg data-icon="" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E3A2C" stroke-width="2" aria-hidden="true" style="flex:none;transition:transform .15s"><path d="M12 3v18M3 12h18"></path></svg>
+                    <svg data-icon="" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B2545" stroke-width="2" aria-hidden="true" style="flex:none;transition:transform .15s"><path d="M12 3v18M3 12h18"></path></svg>
                   </summary>
                   <p style="padding:0 48px 22px 0;max-width:60ch;font-size:17px;text-wrap:pretty">{{ q.antwort }}</p>
                 </details>
@@ -295,27 +335,28 @@ details[open]>summary [data-icon]{transform:rotate(45deg)}
   <div style="max-width:1120px;margin:0 auto;padding:clamp(80px,9vw,136px) clamp(20px,3vw,48px)">
     <div style="display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:clamp(40px,5vw,72px);">
       <div style="grid-column:{{ c.konL }}">
-        <h2 id="kontakt-h" style="font-size:clamp(40px,4.6vw,68px);line-height:0.92;letter-spacing:-0.045em;margin-bottom:28px;font-weight:700">Kontakt</h2>
-        <p style="font-size:17px;max-width:32ch;text-wrap:pretty">Beschreiben Sie kurz, was gereinigt werden soll. Sie erhalten eine Offerte, bevor wir einen Termin vereinbaren.</p>
+        <h2 id="kontakt-h" style="font-size:clamp(40px,4.6vw,68px);line-height:0.92;letter-spacing:-0.045em;margin-bottom:28px;font-weight:700">Offerte anfragen</h2>
+        <p style="font-size:17px;max-width:32ch;text-wrap:pretty">Beschreiben Sie kurz Ihr Objekt und was gereinigt werden soll. Wir melden uns innert 24 Stunden mit Rückfragen oder einer ersten Offerte.</p>
         <dl style="margin:36px 0 0;display:flex;flex-direction:column">
-          <div style="border-top:1px solid #0E3A2C;padding:10px 0 14px">
+          <div style="border-top:1px solid #0B2545;padding:10px 0 14px">
             <dt style="font-size:14px;font-weight:700">Telefon</dt>
-            <dd style="margin:0"><a href="tel:+41442143860" style="display:inline-flex;align-items:center;min-height:44px;font-size:19px;font-weight:500;font-variant-numeric:tabular-nums" style-hover="color:#256B35">044 214 38 60</a></dd>
+            <dd style="margin:0"><a href="tel:+41442143860" style="display:inline-flex;align-items:center;min-height:44px;font-size:19px;font-weight:500;font-variant-numeric:tabular-nums" style-hover="color:#1D5FA8">044 214 38 60</a></dd>
           </div>
           <sc-if value="{{ messenger }}" hint-placeholder-val="{{ true }}">
-            <div style="border-top:1px solid #0E3A2C;padding:10px 0 14px">
+            <div style="border-top:1px solid #0B2545;padding:10px 0 14px">
               <dt style="font-size:14px;font-weight:700">WhatsApp</dt>
-              <dd style="margin:0"><a href="{{ kontaktWaHref }}" style="display:inline-flex;align-items:center;min-height:44px;font-size:19px;font-weight:500" style-hover="color:#256B35">Nachricht schreiben →</a></dd>
+              <dd style="margin:0"><a href="{{ kontaktWaHref }}" style="display:inline-flex;align-items:center;min-height:44px;font-size:19px;font-weight:500" style-hover="color:#1D5FA8">Nachricht schreiben →</a></dd>
             </div>
           </sc-if>
-          <div style="border-top:1px solid #0E3A2C;padding:10px 0 14px">
+          <div style="border-top:1px solid #0B2545;padding:10px 0 14px">
             <dt style="font-size:14px;font-weight:700">E-Mail</dt>
-            <dd style="margin:0"><a href="mailto:hallo@brunner-reinigung.ch" style="display:inline-flex;align-items:center;min-height:44px;font-size:19px;font-weight:500;word-break:break-all" style-hover="color:#256B35">hallo@brunner-reinigung.ch</a></dd>
+            <dd style="margin:0"><a href="mailto:info@prreinigung.ch" style="display:inline-flex;align-items:center;min-height:44px;font-size:19px;font-weight:500;word-break:break-all" style-hover="color:#1D5FA8">info@prreinigung.ch</a></dd>
           </div>
-          <div style="border-top:1px solid #0E3A2C;border-bottom:1px solid #0E3A2C;padding:10px 0 14px">
+          <div style="border-top:1px solid #0B2545;border-bottom:1px solid #0B2545;padding:10px 0 14px">
             <dt style="font-size:14px;font-weight:700">Erreichbar</dt>
             <dd style="margin:6px 0 0;display:grid;grid-template-columns:72px 1fr;font-size:17px;font-variant-numeric:tabular-nums"><span>Mo–Fr</span><span>07:30–18:00</span><span>Sa</span><span>08:00–12:00</span></dd>
           </div>
+          
         </dl>
         
       </div>
@@ -327,7 +368,7 @@ details[open]>summary [data-icon]{transform:rotate(45deg)}
             <sc-if value="{{ multi }}" hint-placeholder-val="{{ true }}">
               <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:8px">
                 <label for="f-leistung" style="font-size:14px;font-weight:700">Leistung</label>
-                <select id="f-leistung" ref="{{ selectRef }}" value="{{ form.leistung }}" onChange="{{ on.leistung }}" aria-invalid="{{ inv.leistung }}" aria-describedby="e-leistung" style="appearance:none;font:inherit;font-size:17px;min-height:52px;padding:0 44px 0 14px;background:#FFFFFF url('data:image/svg+xml;utf8,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2214%22 height=%2214%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%230E3A2C%22 stroke-width=%222.2%22&gt;&lt;path d=%22M6 9l6 6 6-6%22/&gt;&lt;/svg&gt;') no-repeat right 16px center;color:#0E3A2C;border:1px solid {{ bc.leistung }};border-radius:4px">
+                <select id="f-leistung" ref="{{ selectRef }}" value="{{ form.leistung }}" onChange="{{ on.leistung }}" aria-invalid="{{ inv.leistung }}" aria-describedby="e-leistung" style="appearance:none;font:inherit;font-size:17px;min-height:52px;padding:0 44px 0 14px;background:#FFFFFF url('data:image/svg+xml;utf8,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2214%22 height=%2214%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%230B2545%22 stroke-width=%222.2%22&gt;&lt;path d=%22M6 9l6 6 6-6%22/&gt;&lt;/svg&gt;') no-repeat right 16px center;color:#0B2545;border:1px solid {{ bc.leistung }};border-radius:4px">
                   <option value="">Bitte wählen</option>
                   <sc-for list="{{ leistungen }}" as="l" hint-placeholder-count="4">
                     <option value="{{ l.slug }}">{{ l.titel }}</option>
@@ -341,42 +382,42 @@ details[open]>summary [data-icon]{transform:rotate(45deg)}
             </sc-if>
             <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:8px">
               <label for="f-name" style="font-size:14px;font-weight:700">Name</label>
-              <input id="f-name" type="text" autocomplete="name" value="{{ form.name }}" onChange="{{ on.name }}" aria-invalid="{{ inv.name }}" aria-describedby="e-name" style="font:inherit;font-size:17px;min-height:52px;padding:0 14px;background:#FFFFFF;color:#0E3A2C;border:1px solid {{ bc.name }};border-radius:4px">
+              <input id="f-name" type="text" autocomplete="name" value="{{ form.name }}" onChange="{{ on.name }}" aria-invalid="{{ inv.name }}" aria-describedby="e-name" style="font:inherit;font-size:17px;min-height:52px;padding:0 14px;background:#FFFFFF;color:#0B2545;border:1px solid {{ bc.name }};border-radius:4px">
               <sc-if value="{{ err.name }}" hint-placeholder-val="{{ false }}">
                 <p id="e-name" style="display:flex;gap:8px;font-size:15px;color:#B3261E"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.2v.3"></path></svg>{{ err.name }}</p>
               </sc-if>
             </div>
-            <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:8px">
               <label for="f-email" style="font-size:14px;font-weight:700">E-Mail</label>
-              <input id="f-email" type="email" autocomplete="email" value="{{ form.email }}" onChange="{{ on.email }}" aria-invalid="{{ inv.email }}" aria-describedby="e-email" style="font:inherit;font-size:17px;min-height:52px;padding:0 14px;background:#FFFFFF;color:#0E3A2C;border:1px solid {{ bc.email }};border-radius:4px">
+              <input id="f-email" type="email" autocomplete="email" value="{{ form.email }}" onChange="{{ on.email }}" aria-invalid="{{ inv.email }}" aria-describedby="e-email" style="font:inherit;font-size:17px;min-height:52px;padding:0 14px;background:#FFFFFF;color:#0B2545;border:1px solid {{ bc.email }};border-radius:4px">
               <sc-if value="{{ err.email }}" hint-placeholder-val="{{ false }}">
                 <p id="e-email" style="display:flex;gap:8px;font-size:15px;color:#B3261E"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.2v.3"></path></svg>{{ err.email }}</p>
               </sc-if>
             </div>
             <div style="display:flex;flex-direction:column;gap:8px">
               <label for="f-tel" style="font-size:14px;font-weight:700">Telefon <span style="font-weight:400">(optional)</span></label>
-              <input id="f-tel" type="tel" autocomplete="tel" value="{{ form.telefon }}" onChange="{{ on.telefon }}" style="font:inherit;font-size:17px;min-height:52px;padding:0 14px;background:#FFFFFF;color:#0E3A2C;border:1px solid #768C7F;border-radius:4px">
+              <input id="f-tel" type="tel" autocomplete="tel" value="{{ form.telefon }}" onChange="{{ on.telefon }}" style="font:inherit;font-size:17px;min-height:52px;padding:0 14px;background:#FFFFFF;color:#0B2545;border:1px solid #7488A3;border-radius:4px">
             </div>
             <div style="display:flex;flex-direction:column;gap:8px">
               <label for="f-ort" style="font-size:14px;font-weight:700">PLZ / Ort</label>
-              <input id="f-ort" type="text" autocomplete="postal-code" value="{{ form.ort }}" onChange="{{ on.ort }}" aria-invalid="{{ inv.ort }}" aria-describedby="e-ort" style="font:inherit;font-size:17px;min-height:52px;padding:0 14px;background:#FFFFFF;color:#0E3A2C;border:1px solid {{ bc.ort }};border-radius:4px">
+              <input id="f-ort" type="text" autocomplete="postal-code" value="{{ form.ort }}" onChange="{{ on.ort }}" aria-invalid="{{ inv.ort }}" aria-describedby="e-ort" style="font:inherit;font-size:17px;min-height:52px;padding:0 14px;background:#FFFFFF;color:#0B2545;border:1px solid {{ bc.ort }};border-radius:4px">
               <sc-if value="{{ err.ort }}" hint-placeholder-val="{{ false }}">
                 <p id="e-ort" style="display:flex;gap:8px;font-size:15px;color:#B3261E"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.2v.3"></path></svg>{{ err.ort }}</p>
               </sc-if>
             </div>
             <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:8px">
               <label for="f-msg" style="font-size:14px;font-weight:700">Nachricht <span style="font-weight:400">(optional)</span></label>
-              <textarea id="f-msg" rows="5" value="{{ form.nachricht }}" onChange="{{ on.nachricht }}" aria-describedby="h-msg" style="font:inherit;font-size:17px;padding:12px 14px;background:#FFFFFF;color:#0E3A2C;border:1px solid #768C7F;border-radius:4px;resize:vertical"></textarea>
-              <p id="h-msg" style="font-size:14px;color:#44574C">z.B. Grösse der Wohnung, Wunschtermin</p>
+              <textarea id="f-msg" rows="5" value="{{ form.nachricht }}" onChange="{{ on.nachricht }}" aria-describedby="h-msg" style="font:inherit;font-size:17px;padding:12px 14px;background:#FFFFFF;color:#0B2545;border:1px solid #7488A3;border-radius:4px;resize:vertical"></textarea>
+              <p id="h-msg" style="font-size:14px;color:#46566E">z.B. Fläche, Lage, gewünschtes Intervall, Wunschtermin</p>
             </div>
             <div style="grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px;margin-top:8px">
-              <button type="submit" disabled="{{ sending }}" style="font:inherit;font-weight:700;font-size:17px;min-height:56px;padding:0 28px;background:#B8E34A;color:#0E3A2C;border:0;border-radius:4px;cursor:pointer;transition:background-color .15s" style-hover="background:#0E3A2C;color:#FFFFFF">{{ submitLabel }}</button>
-              <p style="flex:1 1 240px;font-size:14px;color:#44574C;max-width:44ch">Ihre Angaben verwenden wir nur zur Beantwortung Ihrer Anfrage. Details in der <a href="/datenschutz">Datenschutzerklärung</a>.</p>
+              <button type="submit" disabled="{{ sending }}" style="font:inherit;font-weight:700;font-size:17px;min-height:56px;padding:0 28px;background:#0B2545;color:#FFFFFF;border:0;border-radius:4px;cursor:pointer;transition:background-color .15s" style-hover="background:#1D5FA8;color:#FFFFFF">{{ submitLabel }}</button>
+              <p style="flex:1 1 240px;font-size:14px;color:#46566E;max-width:44ch">Ihre Angaben verwenden wir nur zur Beantwortung Ihrer Anfrage. Details in der <a href="/datenschutz">Datenschutzerklärung</a>.</p>
             </div>
           </form>
         </sc-if>
         <sc-if value="{{ showSuccess }}" hint-placeholder-val="{{ false }}">
-          <div role="status" style="border-top:2px solid #0E3A2C;padding-top:16px">
+          <div role="status" style="border-top:2px solid #0B2545;padding-top:16px">
             <h3 ref="{{ successRef }}" tabindex="-1" style="font-size:clamp(36px,4vw,64px);line-height:0.95;letter-spacing:-0.04em;font-weight:700">Danke, {{ sentName }}.</h3>
             <p style="margin-top:20px;font-size:18px;max-width:40ch">Ihre Anfrage ist eingegangen. Sie erhalten innert 24 Stunden eine Antwort mit Offerte oder Rückfragen.</p>
           </div>
@@ -388,54 +429,65 @@ details[open]>summary [data-icon]{transform:rotate(45deg)}
 
 </main>
 
-<footer data-section="footer" data-dark="" style="background:#0E3A2C;color:#FFFFFF">
+<footer data-section="footer" data-dark="" style="background:#0B2545;color:#FFFFFF">
   <div style="max-width:1120px;margin:0 auto;padding:clamp(80px,9vw,136px) clamp(20px,3vw,48px) 32px">
     <div style="display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:28px;font-size:15px;line-height:1.5">
-      <p style="grid-column:{{ c.ft0 }};font-weight:700;font-size:19px;letter-spacing:-0.02em;line-height:1">Brunner<br>Reinigung</p>
-      <p style="grid-column:{{ c.ft1 }};color:#B7CDBF">Sandra Brunner Reinigungen<br>Zollikerstrasse 48<br>8008 Zürich</p>
+      <sc-if value="{{ logoC }}" hint-placeholder-val="{{ true }}"><p style="grid-column:{{ c.ft0 }}"><span style="display:flex;align-items:center;gap:8px"><span style="position:relative;flex:none;width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center"><span style="position:absolute;inset:0;border-radius:50%;background:#FFFFFF"></span><span style="position:absolute;top:1px;right:-2px;width:11px;height:11px;border-radius:50%;background:#FFFFFF;box-shadow:0 0 0 3px #0B2545"></span><span style="position:relative;font-size:21px;font-weight:700;letter-spacing:-0.05em;line-height:1;color:#0B2545;margin-top:-3px">pr</span></span><span style="font-size:20px;font-weight:700;letter-spacing:-0.035em;line-height:1;color:#FFFFFF">reinigung</span></span></p></sc-if><sc-if value="{{ logoA }}" hint-placeholder-val="{{ false }}"><p style="grid-column:{{ c.ft0 }};font-weight:700;letter-spacing:-0.02em;line-height:1;display:flex;align-items:center;gap:10px"><span aria-hidden="true" style="position:relative;flex:none;width:36px;height:36px;background:#FFFFFF;color:#0B2545;display:inline-flex;align-items:flex-end;padding:0 0 5px 5px;font-weight:700;font-size:17px;letter-spacing:-0.06em;line-height:1">PR<span style="position:absolute;top:6px;right:6px;width:6px;height:6px;background:#1D5FA8"></span></span><span style="font-size:17px">Reinigung</span></p></sc-if><sc-if value="{{ logoB }}" hint-placeholder-val="{{ false }}"><p style="grid-column:{{ c.ft0 }};font-weight:700;display:flex;align-items:center;gap:10px"><span style="font-size:30px;letter-spacing:-0.06em;line-height:0.8">PR</span><span aria-hidden="true" style="width:3px;align-self:stretch;background:#9CD4FF"></span><span style="display:flex;flex-direction:column;gap:3px;line-height:1"><span style="font-size:15px;letter-spacing:-0.01em">Reinigung</span><span style="font-size:12px;font-weight:500;color:#B9C9DE">Zürich</span></span></p></sc-if>
+      <p style="grid-column:{{ c.ft1 }};color:#B9C9DE">PR Reinigung Max Mustermann<br>Badenerstrasse 120<br>8004 Zürich</p>
       <div style="grid-column:{{ c.ft2 }};display:flex;flex-direction:column">
-        <a href="tel:+41442143860" style="color:#FFFFFF;min-height:28px" style-hover="color:#B8E34A">044 214 38 60</a>
-        <a href="mailto:hallo@brunner-reinigung.ch" style="color:#FFFFFF;min-height:28px" style-hover="color:#B8E34A">hallo@brunner-reinigung.ch</a>
-        <a href="https://maps.google.com" style="color:#FFFFFF;min-height:28px" style-hover="color:#B8E34A">Auf Google ansehen</a>
+        <a href="tel:+41442143860" style="color:#FFFFFF;min-height:28px" style-hover="color:#9CD4FF">044 214 38 60</a>
+        <a href="mailto:info@prreinigung.ch" style="color:#FFFFFF;min-height:28px" style-hover="color:#9CD4FF">info@prreinigung.ch</a>
+        <a href="https://maps.google.com" style="color:#FFFFFF;min-height:28px" style-hover="color:#9CD4FF">Auf Google ansehen</a>
       </div>
     </div>
-    <div style="margin-top:72px;padding-top:12px;border-top:1px solid #FFFFFF;display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);font-size:14px;color:#B7CDBF;align-items:center">
-      <span style="grid-column:{{ c.ft0 }}">© 2026 Sandra Brunner Reinigungen</span>
+    <div style="margin-top:72px;padding-top:12px;border-top:1px solid #FFFFFF;display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);font-size:14px;color:#B9C9DE;align-items:center">
+      <span style="grid-column:{{ c.ft0 }}">© 2026 PR Reinigung Max Mustermann</span>
       <div style="grid-column:{{ c.ft1 }};display:flex;gap:24px">
-        <a href="/impressum" style="color:#FFFFFF;min-height:44px;display:inline-flex;align-items:center" style-hover="color:#B8E34A">Impressum</a>
-        <a href="/datenschutz" style="color:#FFFFFF;min-height:44px;display:inline-flex;align-items:center" style-hover="color:#B8E34A">Datenschutz</a>
+        <a href="/impressum" style="color:#FFFFFF;min-height:44px;display:inline-flex;align-items:center" style-hover="color:#9CD4FF">Impressum</a>
+        <a href="/datenschutz" style="color:#FFFFFF;min-height:44px;display:inline-flex;align-items:center" style-hover="color:#9CD4FF">Datenschutz</a>
       </div>
     </div>
   </div>
 </footer>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;anzahlLeistungen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;1&quot;,&quot;2&quot;,&quot;4&quot;],&quot;default&quot;:&quot;4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Instanz&quot;},&quot;messengerAktiv&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Instanz&quot;},&quot;kartenbilder&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Instanz&quot;},&quot;rasterZeigen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Ansicht&quot;},&quot;heroLayout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Foto breit&quot;,&quot;Split&quot;],&quot;default&quot;:&quot;Foto breit&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Ansicht&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;anzahlLeistungen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;1&quot;,&quot;2&quot;,&quot;4&quot;,&quot;5&quot;],&quot;default&quot;:&quot;5&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Instanz&quot;},&quot;messengerAktiv&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Instanz&quot;},&quot;kartenbilder&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Instanz&quot;},&quot;rasterZeigen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Ansicht&quot;},&quot;heroLayout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Foto breit&quot;,&quot;Split&quot;],&quot;default&quot;:&quot;Foto breit&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Ansicht&quot;},&quot;logoVariante&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Rund&quot;,&quot;Linie&quot;,&quot;Quadrat&quot;],&quot;default&quot;:&quot;Rund&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Ansicht&quot;}}">
 const WA_NR = '41442143860';
 const wa = (t) => 'https://wa.me/' + WA_NR + '?text=' + encodeURIComponent(t);
 const ALL = [
-  { slug: 'unterhaltsreinigung', titel: 'Unterhaltsreinigung', cta: 'beide',
-    einleitung: 'Regelmässige Reinigung Ihrer Wohnung oder Ihres Hauses in Zürich und Umgebung – wöchentlich, alle zwei Wochen oder monatlich, immer durch dieselbe Person.',
-    umfang: ['Böden saugen und feucht wischen', 'Küche inkl. Fronten und Geräte', 'Bad und WC', 'Staub wischen', 'Betten beziehen auf Wunsch'],
+  { slug: 'buero-praxisreinigung', kurz: 'Büros, Praxen und Agenturen', titel: 'Büro- & Praxisreinigung', cta: 'formular', img: 'images/v3-bild-bueroreinigung.webp',
+    einleitung: 'Regelmässige Reinigung von Büros, Praxen und Agenturen, auf Wunsch ausserhalb Ihrer Öffnungszeiten.',
+    umfang: ['Arbeitsplätze und Oberflächen', 'Böden', 'Sanitäranlagen', 'Küche und Besprechungsräume', 'Abfallentsorgung'], faq: [] },
+  { slug: 'treppenhausreinigung', kurz: 'Für Verwaltungen und STWE', titel: 'Treppenhaus- & Liegenschaftsreinigung', cta: 'formular', img: '',
+    einleitung: 'Für Verwaltungen und Stockwerkeigentümer: Eingang und Treppenhaus nach festem Turnus.',
+    umfang: ['Eingangsbereich', 'Treppen und Geländer', 'Lift', 'Kellerräume', 'Glastüren und Fenster im Treppenhaus'], faq: [] },
+  { slug: 'umzugsreinigung', kurz: 'Vor der Wohnungsübergabe', titel: 'Umzugs- & Endreinigung', cta: 'formular', img: 'images/v3-bild-umzugsreinigung.webp',
+    einleitung: 'Komplette Reinigung der Wohnung vor der Übergabe, auf Wunsch mit Begleitung bei der Abnahme.',
+    umfang: ['Küche inkl. Backofen und Kühlschrank', 'Bad und WC', 'Fenster und Storen', 'Böden', 'Keller und Estrich'], faq: [] },
+  { slug: 'unterhaltsreinigung', kurz: 'Wöchentlich bis monatlich', titel: 'Unterhaltsreinigung für Privathaushalte', cta: 'beide', img: 'images/v3-bild-unterhaltsreinigung.webp',
+    einleitung: 'Wöchentlich, alle zwei Wochen oder monatlich – immer durch dieselbe Person.',
+    umfang: ['Böden saugen und feucht aufnehmen', 'Küche und Bad', 'Staub wischen', 'Betten beziehen auf Wunsch'],
     faq: [
-      { frage: 'Kommt immer dieselbe Person?', antwort: 'Ja. Bei Ferien oder Krankheit übernimmt eine Kollegin aus dem Team, die wir Ihnen vorher ankündigen.' },
-      { frage: 'Kann ich einen Termin verschieben?', antwort: 'Bis 48 Stunden vorher kostenlos, per Telefon, WhatsApp oder E-Mail.' }] },
-  { slug: 'umzugsreinigung', titel: 'Umzugsreinigung', cta: 'formular',
-    einleitung: 'Endreinigung Ihrer Mietwohnung vor der Wohnungsabgabe, abgestimmt auf die Anforderungen der Liegenschaftsverwaltung. Auf Wunsch sind wir bei der Abnahme dabei.',
-    umfang: ['Küche inkl. Backofen und Kühlschrank', 'Bad inkl. Entkalkung', 'Fenster, Rahmen und Storen', 'Einbauschränke innen und aussen', 'Keller und Estrich'],
-    faq: [] },
-  { slug: 'spezialreinigungen', titel: 'Spezialreinigungen', cta: 'messenger',
-    einleitung: 'Einsätze ausserhalb der regelmässigen Reinigung: nach Umbau oder Renovation, Fenster und Storen, Teppiche und Polster – für Wohnungen, Häuser und kleine Betriebe.',
-    umfang: ['Baureinigung nach Umbau oder Renovation', 'Fenster, Rahmen und Storen', 'Teppich- und Polsterreinigung', 'Grundreinigung von Böden', 'Reinigung nach Wasserschaden'],
-    faq: [] },
-  { slug: 'bueroreinigung', titel: 'Büroreinigung', cta: 'formular',
-    einleitung: 'Reinigung von Büros, Praxen und Ateliers bis ca. 400 m² ausserhalb Ihrer Geschäftszeiten, frühmorgens oder abends.',
-    umfang: ['Arbeitsplätze und Oberflächen', 'Teeküche und Sanitärräume', 'Böden aller Art', 'Entsorgung und Recycling', 'Verbrauchsmaterial auffüllen'], faq: [] },
+      { frage: 'Kommt immer dieselbe Person?', antwort: 'Ja. Bei Ferien oder Krankheit übernimmt jemand aus dem Team, den wir Ihnen vorher ankündigen.' },
+      { frage: 'Kann ich einen Termin verschieben?', antwort: 'Ja, bis 48 Stunden vorher kostenlos, per Telefon oder E-Mail.' }] },
+  { slug: 'spezialreinigungen', kurz: 'Fenster, Teppiche, Grundreinigung', titel: 'Spezialreinigungen', cta: 'formular', img: 'images/v3-bild-spezialreinigungen.webp',
+    einleitung: 'Einzelaufträge ausserhalb der regelmässigen Reinigung.',
+    umfang: ['Fenster, Glasfronten und Schaufenster', 'Teppich- und Polsterreinigung', 'Grundreinigung von Böden', 'Desinfektionsreinigung', 'Backofen und Kühlschrank'], faq: [] },
+];
+const PREISE = [
+  { slug: 'buero-praxisreinigung', kurz: 'Büros, Praxen und Agenturen', titel: 'Büro kompakt', basis: 'Für kleinere Büros bis ca. 80 m²', preis: 'ab CHF 190.–', einheit: 'pro Monat',
+    umfang: ['1× wöchentlich Unterhaltsreinigung', 'Böden, Abfall, Sanitär, Oberflächen', 'Grundreinigung nach Absprache'] },
+  { slug: 'treppenhausreinigung', kurz: 'Für Verwaltungen und STWE', titel: 'Treppenhaus & Liegenschaft', basis: 'Für kleine bis mittlere Objekte', preis: 'ab CHF 140.–', einheit: 'pro Monat',
+    umfang: ['Regelmässige Treppenhausreinigung', 'Eingangsbereich und Lift inklusive', 'Option: Fenster- und Kellerreinigung'] },
+  { slug: 'umzugsreinigung', kurz: 'Vor der Wohnungsübergabe', titel: 'Umzugs- & Endreinigung', basis: 'Auf Wunsch mit Begleitung bei der Abnahme', preis: 'Auf Anfrage', einheit: 'je nach Wohnungsgrösse',
+    umfang: ['Komplette Endreinigung der Wohnung', 'Fenster, Küche, Bad und Keller inklusive', 'Terminplanung nach Umzug'] },
 ];
 const FAQ_ALLG = [
+  { frage: 'Was kostet eine Reinigung?', antwort: 'Das hängt von Grösse, Zustand und Intervall ab. Richtpreise finden Sie oben auf dieser Seite; nach einer kurzen Besichtigung erhalten Sie eine verbindliche Offerte.' },
+  { frage: 'Kommen Sie für eine Besichtigung vorbei?', antwort: 'Ja, kostenlos und unverbindlich.' },
+  { frage: 'Wie schnell erhalte ich einen Termin?', antwort: 'In der Regel innert fünf Arbeitstagen, je nach Auslastung.' },
+  { frage: 'Reinigen Sie auch abends oder am Wochenende?', antwort: 'Ja, nach Absprache.' },
+  { frage: 'Arbeiten Sie für Firmen und Privatpersonen?', antwort: 'Ja: für Unternehmen, Verwaltungen und Privathaushalte.' },
   { frage: 'In welchen Orten sind Sie tätig?', antwort: 'In der Stadt Zürich und der Agglomeration, vom Limmattal bis an den Pfannenstiel: Zürich mit Oerlikon, Altstetten, Wiedikon, Seefeld, Wollishofen und Schwamendingen sowie Zollikon, Küsnacht, Kilchberg, Adliswil, Wallisellen, Dübendorf, Schlieren, Dietikon und Regensdorf. Ihr Ort ist nicht dabei? Fragen Sie trotzdem an.' },
-  { frage: 'Muss ich zu Hause sein, während Sie reinigen?', antwort: 'Nein. Viele Kundinnen und Kunden geben uns einen Schlüssel, den wir gegen Quittung übernehmen und sicher aufbewahren.' },
-  { frage: 'Bringen Sie Reinigungsmittel und Material mit?', antwort: 'Ja, alles. Wir verwenden wo möglich ökologische Mittel. Haben Sie spezielle Wünsche für Oberflächen, sagen Sie es uns.' },
-  { frage: 'Wie kommt die Offerte zustande?', antwort: 'Nach Ihrer Anfrage klären wir die Details am Telefon oder bei einer kurzen Besichtigung. Die Offerte ist kostenlos und unverbindlich.' },
 ];
 const GALERIE = [
   { titel: 'Unterhaltsreinigung', ort: 'Wiedikon', ph: 'Foto: Wohnzimmer nach Reinigung', d: ['1 / 8', 'span 2'] },
@@ -446,7 +498,7 @@ const GALERIE = [
   { titel: 'Praxisreinigung', ort: 'Altstetten', ph: 'Foto: Praxisraum', d: ['9 / 13', 'span 1'] },
 ];
 const REFS = [
-  { text: 'Seit drei Jahren kommt Frau Brunner alle zwei Wochen. Wir mussten nie etwas nachbessern lassen. Zuverlässig, diskret und immer freundlich.', name: 'Martina K.', datum: 'vor 2 Wochen', sterne: 5 },
+  { text: 'Seit drei Jahren kommt dasselbe Team alle zwei Wochen. Wir mussten nie etwas nachbessern lassen. Zuverlässig, diskret und immer freundlich.', name: 'Martina K.', datum: 'vor 2 Wochen', sterne: 5 },
   { text: 'Die Wohnungsabgabe lief ohne eine einzige Beanstandung. Die Verwaltung hat sogar nachgefragt, wer bei uns gereinigt hat.', name: 'Lukas Meier', datum: 'vor 1 Monat', sterne: 5 },
   { text: 'Am Abend angefragt, am nächsten Tag hatte ich die Offerte. Termin auf die Minute eingehalten.', name: 'Priska W.', datum: 'vor 1 Monat', sterne: 5 },
   { text: 'Unsere Praxis wird frühmorgens gereinigt. Die Patientinnen merken nur, dass alles sauber ist. Genau so soll es sein.', name: 'Daniel Frei', datum: 'vor 2 Monaten', sterne: 5 },
@@ -469,7 +521,7 @@ const WIDE = {
 };
 
 class Component extends DCLogic {
-  state = { narrow: false, active: 0, userPaused: false, stopped: false, hover: false, focus: false, hidden: false, reduced: false, form: { ...EMPTY }, errors: {}, status: 'idle', sentName: '' };
+  state = { narrow: false, active: 0, userPaused: false, stopped: false, hover: false, focus: false, hidden: false, reduced: false, form: { ...EMPTY }, errors: {}, status: 'idle', sentName: '', hdrHidden: false, activeL: Math.max(0, ALL.findIndex(l => typeof location !== 'undefined' && location.hash.slice(1) === l.slug)), openSlug: (typeof location !== 'undefined' && location.hash.slice(1)) || '' };
   trackRef = React.createRef(); menuRef = React.createRef(); successRef = React.createRef(); selectRef = React.createRef();
 
   componentDidMount() {
@@ -481,19 +533,33 @@ class Component extends DCLogic {
     this.onVis = () => this.setState({ hidden: document.hidden });
     document.addEventListener('visibilitychange', this.onVis);
     this.timer = setInterval(() => this.tick(), 6500);
+    this.lastY = window.scrollY;
+    this.onPageScroll = () => {
+      const y = window.scrollY, dy = y - this.lastY;
+      if (Math.abs(dy) < 6) return;
+      this.lastY = y;
+      const hero = document.getElementById('hero');
+      const heroEnd = hero ? hero.getBoundingClientRect().bottom + y - 68 : 400;
+      const menuOpen = this.menuRef.current && this.menuRef.current.open;
+      const hide = dy > 0 && y > heroEnd && !menuOpen;
+      if (hide !== this.state.hdrHidden) this.setState({ hdrHidden: hide });
+    };
+    window.addEventListener('scroll', this.onPageScroll, { passive: true });
     const p = new URLSearchParams(location.search).get('leistung');
     if (p && ALL.some(l => l.slug === p)) this.setState(s => ({ form: { ...s.form, leistung: p } }));
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('scroll', this.onPageScroll);
     this.mq.removeEventListener('change', this.onMq);
     document.removeEventListener('visibilitychange', this.onVis);
     clearInterval(this.timer);
   }
   componentDidUpdate(_, prev) {
     if (prev.status !== 'success' && this.state.status === 'success') this.successRef.current?.focus();
+    if (this.focusTab && prev.activeL !== this.state.activeL) { const id = this.focusTab; this.focusTab = null; requestAnimationFrame(() => document.getElementById(id)?.focus()); }
   }
-  n() { return parseInt(this.props.anzahlLeistungen ?? '4', 10); }
+  n() { return parseInt(this.props.anzahlLeistungen ?? '5', 10); }
   running() { const s = this.state; return !s.stopped && !s.userPaused && !s.reduced; }
   tick() {
     const s = this.state;
@@ -550,39 +616,49 @@ class Component extends DCLogic {
   };
 
   renderVals() {
-    const n = this.n(), messenger = this.props.messengerAktiv ?? true, showImg = this.props.kartenbilder ?? true;
+    const n = this.n(), messenger = this.props.messengerAktiv ?? false, showImg = this.props.kartenbilder ?? true;
     const s = this.state, nar = s.narrow;
     const heroRatio = nar ? '4/3' : '21/9';
     const h6 = nar ? { panel: FULL, panelPr: 'clamp(28px,4vw,64px)', minH: 'auto', img: FULL, imgRow: '2', imgM: '0', imgMinH: '360px' }
       : { panel: '1 / 7', panelPr: 'clamp(28px,4vw,64px)', minH: '600px', img: '7 / 13', imgRow: '1', imgM: '0', imgMinH: '0px' };
     const SPANS = n === 2 ? ['1 / 8', '8 / 13'] : ['1 / 8', '8 / 13', '1 / 6', '6 / 13'];
     const CARD = [
-      { bg: '#FFFFFF', fg: '#0E3A2C', numColor: '#256B35', imgBg: '#DAE5DC', ratio: '16/9' },
-      { bg: '#0E3A2C', fg: '#FFFFFF', numColor: '#B8E34A', imgBg: '#1E5241', ratio: '4/3' },
-      { bg: '#E3EFD9', fg: '#0E3A2C', numColor: '#256B35', imgBg: '#CCE0BD', ratio: '4/3' },
-      { bg: '#FFFFFF', fg: '#0E3A2C', numColor: '#256B35', imgBg: '#DAE5DC', ratio: '16/9' }];
+      { bg: '#FFFFFF', fg: '#0B2545', numColor: '#1D5FA8', imgBg: '#DCE6F2', ratio: '16/9' },
+      { bg: '#0B2545', fg: '#FFFFFF', numColor: '#9CD4FF', imgBg: '#1C3F6E', ratio: '4/3' },
+      { bg: '#E4EEF8', fg: '#0B2545', numColor: '#1D5FA8', imgBg: '#C7DAEF', ratio: '4/3' },
+      { bg: '#FFFFFF', fg: '#0B2545', numColor: '#1D5FA8', imgBg: '#DCE6F2', ratio: '16/9' }];
     const c = nar ? Object.fromEntries(Object.keys(WIDE).map(k => [k, FULL])) : { ...WIDE };
     if (nar) { c.hdLogo = '1 / 3'; c.m1 = 'auto'; c.m2 = 'auto'; c.m3 = 'auto'; }
     const leistungen = ALL.slice(0, n).map((l, i) => {
       const cta = messenger ? l.cta : 'formular';
-      return { ...l, hid: 'l-' + l.slug, row: nar ? 'auto' : '1', imgCol: nar ? FULL : (i % 2 ? '7 / 13' : '1 / 7'), txtCol: nar ? FULL : (!showImg ? '1 / 9' : (i % 2 ? '1 / 6' : '8 / 13')), num: String(i + 1).padStart(2, '0'),
+      return { ...l, umfang: l.umfang.slice(0, 5), hid: 'l-' + l.slug, row: nar ? 'auto' : '1', imgCol: nar ? FULL : (i % 2 ? '7 / 13' : '1 / 7'), txtCol: nar ? FULL : (!showImg ? '1 / 8' : (i % 2 ? '1 / 6' : '8 / 13')), num: String(i + 1).padStart(2, '0'),
         bodyCol: nar ? FULL : (showImg ? '5 / 9' : '5 / 11'),
-        imgId: 'v3-bild-' + l.slug, imgSrc: 'images/v3-bild-' + l.slug + '.webp', imgPh: 'Foto: ' + l.titel,
+        imgId: 'v9-bild-' + l.slug, dTxt: showImg ? '4 / 9' : '1 / 7', dList: showImg ? '9 / 13' : '8 / 13', open: s.openSlug === l.slug ? true : undefined, imgSrc: l.img, hasPhoto: !!l.img, noPhoto: !l.img, imgPh: 'Foto: ' + l.titel,
         hasWa: cta !== 'formular', hasForm: cta !== 'messenger',
         waHref: wa('Guten Tag, ich interessiere mich für: ' + l.titel + '. Ort: … / Wunschtermin: …'),
         formHref: '?leistung=' + l.slug + '#kontakt', onForm: this.jumpToForm(l.slug) };
     });
+    const ai = Math.min(s.activeL, leistungen.length - 1);
+    const lTabs = leistungen.map((l, i) => { const on = i === ai; return { titel: l.titel, kurz: l.kurz, tabId: 'tab-' + l.slug, panelId: 'panel-' + l.slug, sel: on ? 'true' : 'false', tabindex: on ? '0' : '-1',
+      bg: on ? '#0B2545' : '#FFFFFF', fg: on ? '#FFFFFF' : '#0B2545', sub: on ? '#B9C9DE' : '#46566E', arrow: on ? '#0B2545' : '#0B2545', dotBg: on ? '#9CD4FF' : '#EEF3F9', hoverBg: on ? '#0B2545' : '#EEF3F9',
+      onSelect: () => this.setState({ activeL: i }) }; });
+    leistungen.forEach((l, i) => { l.tabId = 'tab-' + l.slug; l.panelId = 'panel-' + l.slug; l.hidden = i === ai ? undefined : true; l.pDisplay = i === ai ? 'grid' : 'none'; });
+    const lActive = { ...leistungen[ai] };
+    const onTabKey = (e) => { const k = e.key; if (!['ArrowDown','ArrowUp','Home','End'].includes(k)) return; e.preventDefault();
+      const n2 = leistungen.length; const nx = k === 'Home' ? 0 : k === 'End' ? n2 - 1 : (ai + (k === 'ArrowDown' ? 1 : -1) + n2) % n2;
+      this.focusTab = 'tab-' + leistungen[nx].slug; this.setState({ activeL: nx }); };
     const groups = [{ titel: 'Allgemein', items: FAQ_ALLG }, ...leistungen.filter(l => l.faq.length).map(l => ({ titel: l.titel, items: l.faq }))];
     const total = groups.reduce((a, g) => a + g.items.length, 0);
     const grouped = groups.length >= 2 && total >= 6;
     const faqGroups = grouped ? groups.map(g => ({ ...g, showTitle: true })) : [{ titel: '', showTitle: false, items: groups.flatMap(g => g.items) }];
     const running = this.running();
     const err = s.errors, bc = {}, inv = {};
-    ['leistung', 'name', 'email', 'ort'].forEach(k => { bc[k] = err[k] ? '#B3261E' : '#768C7F'; inv[k] = err[k] ? 'true' : undefined; });
+    ['leistung', 'name', 'email', 'ort'].forEach(k => { bc[k] = err[k] ? '#B3261E' : '#7488A3'; inv[k] = err[k] ? 'true' : undefined; });
     return {
-      wide: !nar, narrow: nar, c, heroRatio, h6,
+      wide: !nar, narrow: nar, c, heroRatio, h6, hdrT: s.hdrHidden ? 'translateY(-100%)' : 'none', ueRatio: nar ? '1/1' : '4/5',
+      logoA: (this.props.logoVariante ?? 'Rund') === 'Quadrat', logoB: (this.props.logoVariante ?? 'Rund') === 'Linie', logoC: (this.props.logoVariante ?? 'Rund') === 'Rund',
       heroSplit: (this.props.heroLayout ?? 'Foto breit') === 'Split', heroWide: (this.props.heroLayout ?? 'Foto breit') !== 'Split',
-      hb: nar ? { img: FULL, panel: FULL, ratio: '4/3' } : { img: '1 / 9', panel: '9 / 13', ratio: '4/3' },
+      hb: nar ? { ratio: '4/3', cols: 'minmax(0,1fr)', gap: '0px' } : { ratio: '4/3', cols: 'minmax(0,2fr) minmax(0,1fr)', gap: 'clamp(12px,1.6vw,24px)' },
       cols: nar ? 'repeat(4,minmax(0,1fr))' : 'repeat(12,minmax(0,1fr))',
       metaCols: nar ? 'minmax(0,1fr)' : 'repeat(12,minmax(0,1fr))',
       gridCols: Array.from({ length: nar ? 4 : 12 }, (_, i) => i),
@@ -594,26 +670,29 @@ class Component extends DCLogic {
       lstTitle: n === 1 ? ALL[0].titel : 'Leistungen',
       navItems: [
         { label: n === 1 ? ALL[0].titel : 'Leistungen', href: '#leistungen' },
-        { label: 'Über uns', href: '#ueber-uns' }, { label: 'FAQ', href: '#faq' }, { label: 'Kontakt', href: '#kontakt' }],
+        { label: 'Preise', href: '#preise' }, { label: 'Über uns', href: '#ueber-uns' }, { label: 'FAQ', href: '#faq' }, { label: 'Kontakt', href: '#kontakt' }],
       menuRef: this.menuRef,
       closeMenu: () => { if (this.menuRef.current) this.menuRef.current.open = false; },
       heroWa: messenger, heroNoWa: !messenger,
       heroWaHref: wa('Guten Tag, ich möchte eine Offerte. Leistung: … / Ort: … / Wunschtermin: …'),
       kontaktWaHref: wa('Guten Tag, ich habe eine Frage zu Ihren Reinigungsleistungen.'),
+      priceCols: nar ? 'minmax(0,1fr)' : 'minmax(0,1fr) max-content',
+      preise: PREISE.map(p => ({ ...p, formHref: '?leistung=' + p.slug + '#kontakt', onForm: this.jumpToForm(p.slug) })),
+      lTabs, lActive, onTabKey,
       messenger, multi: n > 1, single: n === 1, first: leistungen[0], leistungen, bilder: showImg,
-      refs: REFS.map((r, i) => ({ ...r, aria: 'Bewertung ' + (i + 1) + ' von ' + REFS.length, initial: r.name[0], starsLabel: r.sterne + ' von 5 Sternen', stars: [0,1,2,3,4].map(k => k < r.sterne ? '#0E3A2C' : '#C9D3CB') })),
+      refs: REFS.map((r, i) => ({ ...r, aria: 'Bewertung ' + (i + 1) + ' von ' + REFS.length, initial: r.name[0], starsLabel: r.sterne + ' von 5 Sternen', stars: [0,1,2,3,4].map(k => k < r.sterne ? '#0B2545' : '#C9D4E2') })),
       galCols: nar ? 'repeat(2,minmax(0,1fr))' : 'repeat(12,minmax(0,1fr))',
       galerie: GALERIE.map((g, i) => ({ ...g, id: 'v8-galerie-' + i, src: 'images/v8-galerie-' + i + '.webp', alt: g.titel + ', ' + g.ort, col: nar ? (i === 0 || i === GALERIE.length - 1 ? '1 / -1' : 'auto') : g.d[0], row: nar ? 'auto' : g.d[1], minH: nar ? (i === 0 ? '240px' : '160px') : '220px' })),
       cardW: nar ? '86%' : 'calc((100% - 2 * clamp(12px,1.6vw,24px)) / 3)',
       dots: Array.from({ length: Math.max(1, REFS.length - (nar ? 1 : 3) + 1) }, (_, i) => ({ num: String(i + 1).padStart(2, '0'), label: 'Seite ' + (i + 1) + ' von ' + Math.max(1, REFS.length - (nar ? 1 : 3) + 1),
-        current: i === s.active ? 'true' : undefined, deco: i === s.active ? 'underline' : 'none', op: i === s.active ? '1' : '0.35', w: i === s.active ? '28px' : '10px', color: i === s.active ? '#B8E34A' : '#B7CDBF',
+        current: i === s.active ? 'true' : undefined, deco: i === s.active ? 'underline' : 'none', op: i === s.active ? '1' : '0.35', w: i === s.active ? '28px' : '10px', color: i === s.active ? '#9CD4FF' : '#B9C9DE',
         onClick: () => { this.setState({ stopped: true }); this.go(i); } })),
       trackRef: this.trackRef, onScroll: this.onScroll, onUser: this.onUser, onWheel: this.onWheel,
       onHoverIn: () => this.setState({ hover: true }), onHoverOut: () => this.setState({ hover: false }),
       onFocusIn: () => this.setState({ focus: true }), onFocusOut: () => this.setState({ focus: false }),
       togglePlay: this.togglePlay, isRunning: running, notRunning: !running,
       playLabel: running ? 'Automatisches Weiterschalten pausieren' : 'Automatisches Weiterschalten starten',
-      orte: ORTE.map((o, i) => ({ name: o, color: i % 2 ? '#768C7F' : '#0E3A2C' })), faqGroups,
+      orte: ORTE.map((o, i) => ({ name: o, color: i % 2 ? '#7488A3' : '#0B2545' })), faqGroups,
       form: s.form, on: { leistung: this.setField('leistung'), name: this.setField('name'), email: this.setField('email'), telefon: this.setField('telefon'), ort: this.setField('ort'), nachricht: this.setField('nachricht') },
       err, bc, inv, selectRef: this.selectRef, onSubmit: this.onSubmit,
       sending: s.status === 'sending', submitLabel: s.status === 'sending' ? 'Wird gesendet …' : 'Anfrage senden',
