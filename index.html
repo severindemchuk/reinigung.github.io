@@ -181,12 +181,11 @@ details:not([open])>summary [data-menu-open],details[open]>summary [data-menu-cl
                 </div>
               </sc-if>
               <p style="font-size:17px;text-wrap:pretty">{{ l.einleitung }}</p>
-              <ul style="list-style:none;padding:0;margin-top:16px;display:flex;flex-direction:column;gap:2px;font-size:15px">
+              <ul style="list-style:none;padding:0;margin-top:20px;display:flex;flex-direction:column;border-bottom:1px solid #D6D3CA;font-size:15px;line-height:1.4">
                 <sc-for list="{{ l.umfang }}" as="u" hint-placeholder-count="5">
-                  <li style="display:grid;grid-template-columns:18px 1fr"><span aria-hidden="true" style="color:#1D5FA8">–</span><span>{{ u }}</span></li>
+                  <li style="display:grid;grid-template-columns:24px 1fr;align-items:baseline;border-top:1px solid #D6D3CA;padding:10px 0"><span aria-hidden="true" style="color:#1D5FA8;font-weight:700">✓</span><span>{{ u }}</span></li>
                 </sc-for>
               </ul>
-              <a href="{{ l.formHref }}" onClick="{{ l.onForm }}" style="display:inline-flex;align-items:center;min-height:44px;margin-top:12px;font-weight:700;color:#0B2545;text-decoration:underline;text-underline-offset:4px">Offerte anfragen →</a>
             </div>
           </details>
         </li>
