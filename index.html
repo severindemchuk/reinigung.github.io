@@ -250,6 +250,29 @@ details:not([open])>summary [data-menu-open],details[open]>summary [data-menu-cl
   </div>
 </section>
 
+
+<section data-section="ueber-uns" id="ueber-uns" aria-labelledby="ueber-h" style="scroll-margin-top:68px">
+  <div style="max-width:1120px;margin:0 auto;padding:clamp(80px,9vw,136px) clamp(20px,3vw,48px)">
+    <div style="display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:clamp(40px,5vw,72px);align-items:start">
+      <div style="grid-column:{{ c.ueImg }};aspect-ratio:{{ ueRatio }};background:#DCE6F2">
+        <img src="images/v3-portrait.webp" alt="Max Mustermann, Inhaber" loading="lazy" style="display:block;width:100%;height:100%;object-fit:cover">
+      </div>
+      <div style="grid-column:{{ c.ueText }}">
+        <h2 id="ueber-h" style="font-size:clamp(40px,4.6vw,68px);line-height:0.92;letter-spacing:-0.045em;margin-bottom:28px;font-weight:700">Klein, persönlich, verlässlich.</h2>
+        <div style="display:flex;flex-direction:column;gap:12px;max-width:52ch;font-size:17px;text-wrap:pretty">
+          <p>PR Reinigung ist ein inhabergeführter Betrieb. Sie haben eine feste Ansprechperson und ein festes Team, das Ihre Räume kennt.</p>
+          <p>Wir arbeiten dann, wenn es Ihnen passt: früh morgens, abends oder am Wochenende.</p>
+          <p>Wo möglich setzen wir ökologische Reinigungsmittel ein und dosieren sparsam.</p>
+        </div>
+        <dl style="margin:36px 0 0;display:flex;flex-wrap:wrap;gap:16px clamp(24px,3vw,48px);font-size:15px">
+          <div style="border-top:1px solid #0B2545;padding-top:10px;min-width:180px"><dt style="font-weight:700">Max Mustermann</dt><dd style="margin:0">Inhaber und Geschäftsführer</dd></div>
+          <div style="border-top:1px solid #0B2545;padding-top:10px;min-width:180px"><dt style="font-weight:700">Versichert</dt><dd style="margin:0">Betriebshaftpflicht bis CHF 5 Mio.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section data-section="referenzen" id="referenzen" aria-labelledby="referenzen-h" style="scroll-margin-top:68px;background:#F5F4F0;color:#0B2545">
   <div style="max-width:1120px;margin:0 auto;padding:clamp(80px,9vw,136px) clamp(20px,3vw,48px)">
     <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px">
@@ -300,29 +323,7 @@ details:not([open])>summary [data-menu-open],details[open]>summary [data-menu-cl
   </div>
 </section>
 
-<section data-section="ueber-uns" id="ueber-uns" aria-labelledby="ueber-h" style="scroll-margin-top:68px">
-  <div style="max-width:1120px;margin:0 auto;padding:clamp(80px,9vw,136px) clamp(20px,3vw,48px)">
-    <div style="display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:clamp(40px,5vw,72px);align-items:start">
-      <div style="grid-column:{{ c.ueImg }};aspect-ratio:{{ ueRatio }};background:#DCE6F2">
-        <img src="images/v3-portrait.webp" alt="Max Mustermann, Inhaber" loading="lazy" style="display:block;width:100%;height:100%;object-fit:cover">
-      </div>
-      <div style="grid-column:{{ c.ueText }}">
-        <h2 id="ueber-h" style="font-size:clamp(40px,4.6vw,68px);line-height:0.92;letter-spacing:-0.045em;margin-bottom:28px;font-weight:700">Klein, persönlich, verlässlich.</h2>
-        <div style="display:flex;flex-direction:column;gap:12px;max-width:52ch;font-size:17px;text-wrap:pretty">
-          <p>PR Reinigung ist ein inhabergeführter Betrieb. Sie haben eine feste Ansprechperson und ein festes Team, das Ihre Räume kennt.</p>
-          <p>Wir arbeiten dann, wenn es Ihnen passt: früh morgens, abends oder am Wochenende.</p>
-          <p>Wo möglich setzen wir ökologische Reinigungsmittel ein und dosieren sparsam.</p>
-        </div>
-        <dl style="margin:36px 0 0;display:flex;flex-wrap:wrap;gap:16px clamp(24px,3vw,48px);font-size:15px">
-          <div style="border-top:1px solid #0B2545;padding-top:10px;min-width:180px"><dt style="font-weight:700">Max Mustermann</dt><dd style="margin:0">Inhaber und Geschäftsführer</dd></div>
-          <div style="border-top:1px solid #0B2545;padding-top:10px;min-width:180px"><dt style="font-weight:700">Versichert</dt><dd style="margin:0">Betriebshaftpflicht bis CHF 5 Mio.</dd></div>
-        </dl>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section data-section="faq" id="faq" aria-labelledby="faq-h" style="scroll-margin-top:68px;background:#F5F4F0">
+<section data-section="faq" id="faq" aria-labelledby="faq-h" style="scroll-margin-top:68px;background:#FFFFFF">
   <div style="max-width:1120px;margin:0 auto;padding:clamp(80px,9vw,136px) clamp(20px,3vw,48px)">
     <div style="display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:clamp(40px,5vw,72px);">
       <div style="grid-column:{{ c.faqL }}">
@@ -353,7 +354,7 @@ details:not([open])>summary [data-menu-open],details[open]>summary [data-menu-cl
   </div>
 </section>
 
-<section data-section="kontakt" id="kontakt" aria-labelledby="kontakt-h" style="scroll-margin-top:68px">
+<section data-section="kontakt" id="kontakt" aria-labelledby="kontakt-h" style="scroll-margin-top:68px;background:#F5F4F0">
   <div style="max-width:1120px;margin:0 auto;padding:clamp(80px,9vw,136px) clamp(20px,3vw,48px)">
     <div style="display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:clamp(40px,5vw,72px);">
       <div style="grid-column:{{ c.konL }}">
