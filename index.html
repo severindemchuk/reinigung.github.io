@@ -48,7 +48,7 @@ details:not([open])>summary [data-menu-open],details[open]>summary [data-menu-cl
       <nav aria-label="Hauptnavigation" style="grid-column:1 / -1;grid-row:1;justify-self:center">
         <ul style="list-style:none;padding:0;display:grid;grid-template-columns:repeat(5,max-content);column-gap:clamp(16px,2vw,28px)">
           <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
-            <li><a href="{{ n.href }}" style="color:#0B2545;text-decoration:none;font-size:15px;font-weight:500;display:inline-flex;align-items:center;min-height:44px" style-hover="color:#1D5FA8">{{ n.label }}</a></li>
+            <li><a href="{{ n.href }}" onClick="{{ n.onClick }}" style="color:#0B2545;text-decoration:none;font-size:15px;font-weight:500;display:inline-flex;align-items:center;min-height:44px" style-hover="color:#1D5FA8">{{ n.label }}</a></li>
           </sc-for>
         </ul>
       </nav>
@@ -72,7 +72,7 @@ details:not([open])>summary [data-menu-open],details[open]>summary [data-menu-cl
             <nav aria-label="Hauptnavigation">
               <ul style="list-style:none;padding:0;border-bottom:1px solid #D6D3CA">
                 <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="5">
-                  <li style="border-top:1px solid #D6D3CA"><a href="{{ n.href }}" onClick="{{ closeMenu }}" style="display:flex;justify-content:space-between;align-items:center;min-height:68px;color:#0B2545;text-decoration:none;font-size:30px;font-weight:700;letter-spacing:-0.035em">{{ n.label }}<span aria-hidden="true" style="font-size:22px;color:#1D5FA8">→</span></a></li>
+                  <li style="border-top:1px solid #D6D3CA"><a href="{{ n.href }}" onClick="{{ n.onClick }}" style="display:flex;justify-content:space-between;align-items:center;min-height:68px;color:#0B2545;text-decoration:none;font-size:30px;font-weight:700;letter-spacing:-0.035em">{{ n.label }}<span aria-hidden="true" style="font-size:22px;color:#1D5FA8">→</span></a></li>
                 </sc-for>
               </ul>
             </nav>
@@ -132,7 +132,7 @@ details:not([open])>summary [data-menu-open],details[open]>summary [data-menu-cl
 </sc-if>
 
 <section data-section="leistungen" id="leistungen" aria-labelledby="leistungen-h" style="scroll-margin-top:68px;background:#F5F4F0">
-  <div style="max-width:1120px;margin:0 auto;padding:0 clamp(20px,3vw,48px) clamp(80px,9vw,136px)">
+  <div style="max-width:1120px;margin:0 auto;padding:clamp(56px,6vw,88px) clamp(20px,3vw,48px) clamp(80px,9vw,136px)">
     <div style="display:grid;grid-template-columns:{{ cols }};column-gap:clamp(12px,1.6vw,24px);row-gap:16px;align-items:end">
       <h2 id="leistungen-h" style="grid-column:{{ c.lsH }};font-size:clamp(40px,4.6vw,68px);line-height:0.92;letter-spacing:-0.045em;font-weight:700">{{ lstTitle }}</h2>
     </div>
@@ -535,6 +535,7 @@ class Component extends DCLogic {
     this.timer = setInterval(() => this.tick(), 6500);
     this.lastY = window.scrollY;
     this.onPageScroll = () => {
+      if (this.navScrolling) return;
       const y = window.scrollY, dy = y - this.lastY;
       if (Math.abs(dy) < 6) return;
       this.lastY = y;
@@ -578,6 +579,20 @@ class Component extends DCLogic {
     const t = this.trackRef.current; if (!t || !t.clientWidth) return;
     const i = Math.min(this.pages() - 1, Math.round(t.scrollLeft / this.step()));
     if (i !== this.state.active) this.setState({ active: i });
+  };
+  scrollToSection = (href) => (e) => {
+    const el = document.getElementById(href.replace('#', ''));
+    if (this.menuRef.current) this.menuRef.current.open = false;
+    if (!el) return;
+    e.preventDefault();
+    const start = window.scrollY, target = Math.max(0, el.getBoundingClientRect().top + start);
+    const done = () => { this.navScrolling = false; this.lastY = window.scrollY; this.setState({ hdrHidden: target > 0 }); try { history.replaceState(null, '', href); } catch (_) {} };
+    this.navScrolling = true;
+    if (this.state.reduced) { window.scrollTo(0, target); done(); return; }
+    const dist = target - start, dur = Math.min(600, 300 + Math.abs(dist) / 12), t0 = performance.now();
+    const ease = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    const step = (now) => { const p = Math.min(1, (now - t0) / dur); window.scrollTo(0, start + dist * ease(p)); if (p < 1) requestAnimationFrame(step); else done(); };
+    requestAnimationFrame(step);
   };
   onUser = () => { if (!this.state.stopped) this.setState({ stopped: true }); };
   onWheel = (e) => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) this.onUser(); };
@@ -670,7 +685,7 @@ class Component extends DCLogic {
       lstTitle: n === 1 ? ALL[0].titel : 'Leistungen',
       navItems: [
         { label: n === 1 ? ALL[0].titel : 'Leistungen', href: '#leistungen' },
-        { label: 'Preise', href: '#preise' }, { label: 'Über uns', href: '#ueber-uns' }, { label: 'FAQ', href: '#faq' }, { label: 'Kontakt', href: '#kontakt' }],
+        { label: 'Preise', href: '#preise' }, { label: 'Über uns', href: '#ueber-uns' }, { label: 'FAQ', href: '#faq' }, { label: 'Kontakt', href: '#kontakt' }].map(it => ({ ...it, onClick: this.scrollToSection(it.href) })),
       menuRef: this.menuRef,
       closeMenu: () => { if (this.menuRef.current) this.menuRef.current.open = false; },
       heroWa: messenger, heroNoWa: !messenger,
